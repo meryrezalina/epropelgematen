@@ -2234,6 +2234,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -61517,7 +61518,9 @@ var render = function () {
           [
             _vm._l(_vm.anggarans, function (anggaran, index) {
               return _c("tr", [
-                !anggaran.isDeleted ? _c("td") : _vm._e(),
+                !anggaran.isDeleted
+                  ? _c("td", [_vm._v(_vm._s(index + 1))])
+                  : _vm._e(),
                 _vm._v(" "),
                 !anggaran.isDeleted
                   ? _c("td", [_vm._v(_vm._s(anggaran.pengeluaranDeskripsi))])
@@ -61834,6 +61837,8 @@ var render = function () {
             }),
             _vm._v(" "),
             _c("tr", [
+              _c("th"),
+              _vm._v(" "),
               _c("th"),
               _vm._v(" "),
               _c("th"),
