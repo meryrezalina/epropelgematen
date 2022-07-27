@@ -15,7 +15,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="(anggaran, index) in anggarans">
-                        <td v-if="!anggaran.isDeleted"></td>
+                        <td v-if="!anggaran.isDeleted">{{index+1}}</td>
                         <td v-if="!anggaran.isDeleted">{{anggaran.pengeluaranDeskripsi}}</td>
                         <td v-if="!anggaran.isDeleted">{{anggaran.hargaSatuan}}</td>
                         <td v-if="!anggaran.isDeleted">{{anggaran.kuantitas}}</td>
@@ -41,6 +41,7 @@
                         <th></th>
                         <th></th> 
                         <th></th>
+                        <th></th> 
                         <th></th> 
                         <th colspan="2">Total: {{total}}</th>
                     </tr>

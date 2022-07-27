@@ -2063,6 +2063,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.anggaran = {};
     },
+    tandaPemisahTitik: function tandaPemisahTitik(b) {
+      var _minus = false;
+      if (b < 0) _minus = true;
+      b = b.toString();
+      b = b.replace(".", "");
+      b = b.replace("-", "");
+      c = "";
+      panjang = b.length;
+      j = 0;
+
+      for (i = panjang; i > 0; i--) {
+        j = j + 1;
+
+        if (j % 3 == 1 && j != 1) {
+          c = b.substr(i - 1, 1) + "." + c;
+        } else {
+          c = b.substr(i - 1, 1) + c;
+        }
+      }
+
+      if (_minus) c = "-" + c;
+      return c;
+    },
     removeAnggaran: function removeAnggaran(index) {
       this.anggarans[index].isDeleted = true;
     },
@@ -2100,6 +2123,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -61494,7 +61518,9 @@ var render = function () {
           [
             _vm._l(_vm.anggarans, function (anggaran, index) {
               return _c("tr", [
-                !anggaran.isDeleted ? _c("td") : _vm._e(),
+                !anggaran.isDeleted
+                  ? _c("td", [_vm._v(_vm._s(index + 1))])
+                  : _vm._e(),
                 _vm._v(" "),
                 !anggaran.isDeleted
                   ? _c("td", [_vm._v(_vm._s(anggaran.pengeluaranDeskripsi))])
@@ -61811,6 +61837,8 @@ var render = function () {
             }),
             _vm._v(" "),
             _c("tr", [
+              _c("th"),
+              _vm._v(" "),
               _c("th"),
               _vm._v(" "),
               _c("th"),
