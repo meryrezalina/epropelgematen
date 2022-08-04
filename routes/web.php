@@ -11,13 +11,12 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
-Auth::routes();
 Auth::routes(['register' => false]);
 
 //Route::get('/home', 'HomeController@index')->name('home');
@@ -36,7 +35,6 @@ Route::put('/dashboard/proposal/{proposals}', 'Dashboard\ProposalController@upda
 Route::delete('/dashboard/proposal/{proposals}', 'Dashboard\ProposalController@destroy')->name('dashboard.proposal.delete');
 Route::get('/dashboard/proposalexport', 'Dashboard\ProposalController@proposalexport')->name('dashboard.proposalexport');
 Route::get('/dashboard/proposallist/{proposals}', 'Dashboard\ProposalController@proposallist')->name('dashboard.proposallist');
-
 
 //E-LPJ
 Route::get('/dashboard/lpj', 'Dashboard\LpjController@index')->name('dashboard.lpjs');
@@ -57,14 +55,13 @@ Route::get('/dashboard/propelexport', 'Dashboard\PropelController@propelexport')
 Route::get('/dashboard/dataexport2/{propel}', 'Dashboard\PropelController@dataexport2')->name('dashboard.dataexport2');
 Route::get('/dashboard/cobaexport', 'Dashboard\PropelController@cobaexport')->name('dashboard.cobaexport');
 
-
 //PROFIL
 Route::get('/dashboard/profil', 'Dashboard\ProfilController@index')->name('dashboard.profil');
 // Route::get('/dashboard/profil', 'Dashboard\ProfilController@update')->name('dashboard.profil.update');
 Route::post('/dashboard/profil/updatepassword', 'Dashboard\ProfilController@update_password')->name('dashboard.profil.update_password');
 Route::post('/dashboard/profil', 'Dashboard\ProfilController@update')->name('dashboard.profil.update');
 
-//USERS 
+//USERS
 Route::get('/dashboard/users', 'Dashboard\UsersController@index')->name('dashboard.users');
 Route::get('/dashboard/users/create', 'Dashboard\UsersController@create')->name('dashboard.users.create');
 Route::post('/dashboard/users', 'Dashboard\UsersController@store')->name('dashboard.users.store');
