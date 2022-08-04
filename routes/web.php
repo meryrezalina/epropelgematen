@@ -29,16 +29,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/dashboard', 'Dashboard\DashboardController@search')->name('dashboard.search');
 
 //E-PROPOSAL
-<<<<<<< HEAD
-Route::get('/dashboard/proposal', 'Dashboard\ProposalController@index')->name('dashboard.proposals');
-Route::get('/dashboard/proposal/create', 'Dashboard\ProposalController@create')->name('dashboard.proposal.create');
-Route::post('/dashboard/proposal', 'Dashboard\ProposalController@store')->name('dashboard.proposal.store');
-Route::get('/dashboard/proposal/{proposals}', 'Dashboard\ProposalController@edit')->name('dashboard.proposal.edit');
-Route::put('/dashboard/proposal/{proposals}', 'Dashboard\ProposalController@update')->name('dashboard.proposal.update');
-Route::delete('/dashboard/proposal/{proposals}', 'Dashboard\ProposalController@destroy')->name('dashboard.proposal.delete');
-Route::get('/dashboard/proposalexport', 'Dashboard\ProposalController@proposalexport')->name('dashboard.proposalexport');
-Route::get('/dashboard/proposallist/{proposals}', 'Dashboard\ProposalController@proposallist')->name('dashboard.proposallist');
-=======
     Route::get('/dashboard/proposal', 'Dashboard\ProposalController@index')->name('dashboard.proposals');
     Route::get('/dashboard/proposal/create', 'Dashboard\ProposalController@create')->name('dashboard.proposal.create');
     Route::post('/dashboard/proposal', 'Dashboard\ProposalController@store')->name('dashboard.proposal.store');
@@ -47,7 +37,6 @@ Route::get('/dashboard/proposallist/{proposals}', 'Dashboard\ProposalController@
     Route::delete('/dashboard/proposal/{proposals}', 'Dashboard\ProposalController@destroy')->name('dashboard.proposal.delete');
     Route::get('/dashboard/proposalexport', 'Dashboard\ProposalController@proposalexport')->name('dashboard.proposalexport');
     Route::get('/dashboard/proposallist/{proposals}', 'Dashboard\ProposalController@proposallist')->name('dashboard.proposallist');
->>>>>>> 3951ded98b450f0839586b645a8c3b85d2e1580f
 
 //E-LPJ
     Route::get('/dashboard/lpj', 'Dashboard\LpjController@index')->name('dashboard.lpjs');
@@ -58,17 +47,7 @@ Route::get('/dashboard/proposallist/{proposals}', 'Dashboard\ProposalController@
     Route::delete('/dashboard/lpj/{lpj}', 'Dashboard\LpjController@destroy')->name('dashboard.lpj.delete');
 
 //E-PROPEL
-<<<<<<< HEAD
-Route::get('/dashboard/propel', 'Dashboard\PropelController@index')->name('dashboard.propel');
-Route::get('/dashboard/propel/create', 'Dashboard\PropelController@create')->name('dashboard.propel.create');
-Route::post('/dashboard/propel', 'Dashboard\PropelController@store')->name('dashboard.propel.store');
-Route::get('/dashboard/propel/{propel}', 'Dashboard\PropelController@edit')->name('dashboard.propel.edit');
-Route::put('/dashboard/propel/{propel}', 'Dashboard\PropelController@update')->name('dashboard.propel.update');
-Route::delete('/dashboard/propel/{propel}', 'Dashboard\PropelController@destroy')->name('dashboard.propel.delete');
-Route::get('/dashboard/propelexport', 'Dashboard\PropelController@propelexport')->name('dashboard.propelexport');
-Route::get('/dashboard/dataexport2/{propel}', 'Dashboard\PropelController@dataexport2')->name('dashboard.dataexport2');
-Route::get('/dashboard/cobaexport', 'Dashboard\PropelController@cobaexport')->name('dashboard.cobaexport');
-=======
+
     Route::get('/dashboard/propel', 'Dashboard\PropelController@index')->name('dashboard.propel');
     Route::get('/dashboard/propel/create', 'Dashboard\PropelController@create')->name('dashboard.propel.create');
     Route::post('/dashboard/propel', 'Dashboard\PropelController@store')->name('dashboard.propel.store');
@@ -78,7 +57,6 @@ Route::get('/dashboard/cobaexport', 'Dashboard\PropelController@cobaexport')->na
     Route::get('/dashboard/propelexport', 'Dashboard\PropelController@propelexport')->name('dashboard.propelexport');
     Route::get('/dashboard/dataexport2/{propel}', 'Dashboard\PropelController@dataexport2')->name('dashboard.dataexport2');
     Route::get('/dashboard/cobaexport', 'Dashboard\PropelController@cobaexport')->name('dashboard.cobaexport');
->>>>>>> 3951ded98b450f0839586b645a8c3b85d2e1580f
 
 //PROFIL
     Route::get('/dashboard/profil', 'Dashboard\ProfilController@index')->name('dashboard.profil');
@@ -87,16 +65,10 @@ Route::get('/dashboard/cobaexport', 'Dashboard\PropelController@cobaexport')->na
     Route::post('/dashboard/profil', 'Dashboard\ProfilController@update')->name('dashboard.profil.update');
 
 //USERS
-<<<<<<< HEAD
-Route::get('/dashboard/users', 'Dashboard\UsersController@index')->name('dashboard.users');
-Route::get('/dashboard/users/create', 'Dashboard\UsersController@create')->name('dashboard.users.create');
-Route::post('/dashboard/users', 'Dashboard\UsersController@store')->name('dashboard.users.store');
-=======
     Route::get('/dashboard/users', 'Dashboard\UsersController@index')->name('dashboard.users');
     Route::get('/dashboard/users/create', 'Dashboard\UsersController@create')->name('dashboard.users.create');
     Route::post('/dashboard/users', 'Dashboard\UsersController@store')->name('dashboard.users.store');
     Route::get('/dashboard/users/delete/{user}', 'Dashboard\UsersController@destroy')->name('dashboard.users.delete');
->>>>>>> 3951ded98b450f0839586b645a8c3b85d2e1580f
 
 //PDF
     Route::get('dashboard/download_public', 'Dashboard\PdfController@download_public')->name('dashboard.pdf');
