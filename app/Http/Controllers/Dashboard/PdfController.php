@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class PdfController extends Controller
@@ -19,7 +18,7 @@ class PdfController extends Controller
         //     ]);
         // }
         // return redirect('/404');
-        $file = public_path()."\panduan.pdf";
+        $file = public_path() . "/panduan.pdf";
 
         $headers = array(
             'Content-Type: application/pdf',
