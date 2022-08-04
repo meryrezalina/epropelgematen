@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Models\User;
-use App\Models\Bidang;
-use App\Models\Timpel;
-use App\Models\Proposal;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Bidang;
+use App\Models\Proposal;
+use App\Models\Timpel;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -28,21 +27,21 @@ class UsersController extends Controller
         $active = 'Users';
         $q = $request->input('q');
 
-
-        $users = $users ->when($q, function($query) use ($q) {
-            return $query->where('name', 'like', '%'.$q.'%')
-                        ->orWhere('email', 'like', '%'.$q.'%');
-                    })->paginate(10);
+        $users = $users->when($q, function ($query) use ($q) {
+            return $query->where('name', 'like', '%' . $q . '%')
+                ->orWhere('email', 'like', '%' . $q . '%');
+        })->paginate(10);
 
         $request = $request->all();
         $data_fk = Proposal::with('bidang', 'timpel');
 
+        //return $users;
 
         return view('dashboard/users/list', compact('data_fk'),
-                                            ['users' => $users,
-                                             'request'=>$request, 
-                                             'active' => $active,
-                                             'data_fk' => $data_fk]);
+            ['users' => $users,
+                'request' => $request,
+                'active' => $active,
+                'data_fk' => $data_fk]);
     }
 
     /**
@@ -61,7 +60,7 @@ class UsersController extends Controller
             'active' => $active,
         ]);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -72,19 +71,19 @@ class UsersController extends Controller
     {
         Log::info('store');
         $validator = Validator::make($request->all(), [
-            'name'  => 'required',
+            'name' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:6|max:100',
             'password_confirmation' => 'required|same:password',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             Log::info('validation faield');
             return redirect()
-                    ->route('dashboard.users.create')
-                    ->withErrors($validator)
-                    ->withInput();
-        }else{
+                ->route('dashboard.users.create')
+                ->withErrors($validator)
+                ->withInput();
+        } else {
 
             // $users->name                = $request->input('name');
             // $users->email               = $request->input('email');
@@ -101,7 +100,7 @@ class UsersController extends Controller
                 'bidangID' => $request->input('bidangID'),
                 'timpelID' => $request->input('timpelID'),
                 'role' => $request->input('role'),
-            ],);
+            ], );
             return redirect()
                 ->route('dashboard.users')
                 ->with('message', __('message.create', ['propel' => $request->input('propel')]));
@@ -149,8 +148,12 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $users)
     {
-        //
+        User::where('id',$users)->delete();
+        return "berhasil hapus";
+
+        return redirect()
+            ->route('dashboard.users');
     }
 }

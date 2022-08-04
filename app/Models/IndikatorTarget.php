@@ -15,5 +15,4 @@ class IndikatorTarget extends Model
     {
         return $this->belongsTo(Propel::class, 'propelID');
     }
-
 }
