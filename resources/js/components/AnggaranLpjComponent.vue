@@ -17,11 +17,11 @@
                     <tr v-for="(anggaran, index) in anggarans">
                         <td v-if="!anggaran.isDeleted">{{index+1}}</td>
                         <td v-if="!anggaran.isDeleted">{{anggaran.pengeluaranDeskripsi}}</td>
-                        <td v-if="!anggaran.isDeleted">{{anggaran.hargaSatuan}}</td>
+                        <td v-if="!anggaran.isDeleted">{{formatPrice(anggaran.hargaSatuan)}}</td>
                         <td v-if="!anggaran.isDeleted">{{anggaran.kuantitas}}</td>
                         <td v-if="!anggaran.isDeleted">{{anggaran.satuan}}</td>
                         <td v-if="!anggaran.isDeleted">{{sumberDana.find(source => source.sumberID === anggaran.sumberID).sumberDeskripsi}}</td>
-                        <td v-if="!anggaran.isDeleted">{{anggaran.hargaSatuan * anggaran.kuantitas}}</td>
+                        <td v-if="!anggaran.isDeleted">{{formatPrice(anggaran.hargaSatuan * anggaran.kuantitas)}}</td>
                         <td v-if="!anggaran.isDeleted"> 
                             <button type="button" @click="editAnggaran(index)" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#anggaranModal"><i class="fas fa-edit"></i></button>
                             <button type="button" @click="removeAnggaran(index)" class="btn btn-outline-danger btn-sm"><i class="fas fa-times"></i></button>
@@ -43,7 +43,8 @@
                         <th></th>
                         <th></th> 
                         <th></th> 
-                        <th colspan="2">Total: {{total}}</th>
+                        <th colspan="2">Total: {{formatPrice(total)}}</th>
+
                     </tr>
                    
                 </tbody>
@@ -72,9 +73,22 @@
                         <input type="text" class="form-control" id="pengeluaranDeskripsi" name="pengeluaranDeskripsi" placeholder="Masukkan Pengeluaran Deskripsi" v-model="anggaran.pengeluaranDeskripsi">
                     </div>
                     
-                    <div class="form-group">
+                     <div class="form-group">
                         <label for="hargaSatuan" class="col-form-label">Harga Satuan:</label>
-                        <input type="number" class="form-control" id="hargaSatuan" name="hargaSatuan" placeholder="Masukkan Harga Satuan" v-model="anggaran.hargaSatuan">
+                        <AutoNumericVue class="form-control" id="hargaSatuan" name="hargaSatuan" v-model="anggaran.hargaSatuan"
+                                :options="{
+                                    digitGroupSeparator: '.',
+                                    decimalCharacter: ',',
+                                    decimalCharacterAlternative: '.',
+                                    currencySymbol: '\u00a0Rp',
+                                    currencySymbolPlacement: 'p',
+                                    roundingMethod: 'U',
+                                    minimumValue: '0',
+                                    decimalPlaces: '0',
+                                }"
+                            >
+                            </AutoNumericVue>
+                        <!-- <input type="text" class="form-control" id="hargaSatuan" name="hargaSatuan" placeholder="Masukkan Harga Kuantitas" v-model="anggaran.hargaSatuan"> -->
                     </div>
 
                     <div class="form-group">
@@ -111,6 +125,8 @@
 
         
 <script>
+    import AutoNumericVue from 'autonumeric-vue/src/components/AutoNumericVue';
+
     export default {
         data: () => ({
             anggarans: [],
@@ -118,11 +134,22 @@
             anggaran: {}
         }),
         props: ['sumberDana', 'listOfAnggaran'],
+
+        components:{
+            AutoNumericVue
+        },
+
         created(){
             this.sumberDana = this.sumberDana;
             this.anggarans = this.listOfAnggaran.map(v => ({...v, isDeleted: false}));
         },
         methods: {
+
+            formatPrice(value) {
+            let val = (value/1).toFixed(0).replace('.', ',')
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            },
+
             addAnggaran(){
                 this.anggaran.isDeleted = false;
                 let valHargaSatuan = document.getElementById("hargaSatuan").value;
