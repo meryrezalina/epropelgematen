@@ -26,7 +26,7 @@
                         <input type="hidden" class="form-control" :name="`rincians[${index}][tempat]`" v-model="rincian.tempat"> 
                         <input type="hidden" class="form-control" :name="`rincians[${index}][waktuMulai]`" v-model="rincian.waktuMulai"> 
                         <input type="hidden" class="form-control" :name="`rincians[${index}][waktuSelesai]`" v-model="rincian.waktuSelesai"> 
-                        <input type="hidden" class="form-control" :name="`rincians[${index}][id]`" v-model="rincian.rincianPropelID"> 
+                        <input type="hidden" class="form-control" :name="`rincians[${index}][id]`" v-model="rincian.rincianID"> 
                         <input type="hidden" class="form-control" :name="`rincians[${index}][isDeleted]`" v-model="rincian.isDeleted"> 
 
                     </tr>
@@ -92,11 +92,14 @@
     export default {
         data: () => ({
             rincians: [],
-            rincian: {}
+            rincian: {},
+            jenis: [],
+            dataKe: ""
         }),
-        props: ['listOfRincian'],
+        props: ['listOfRincian', 'jenisData'],
         created(){
             this.rincians = this.listOfRincian;
+            this.jenis = this.jenisData;
             this.rincians = this.listOfRincian.map(v => ({...v, isDeleted: false}));
         },
         components:{
@@ -116,32 +119,65 @@
                 let valWaktuMulai = document.getElementById("waktuMulai").value;
                 let valWaktuSelesai = document.getElementById("waktuSelesai").value;
 
-                if(this.rincian && this.rincian.rincianPropelID){
-                    let idx = this.rincians.findIndex((obj => obj.rincianPropelID == this.rincian.rincianPropelID));
-                    this.rincians[idx] = this.rincian;
-                }else{//Error Jika Data Kosong
-                    if(!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai){
-                        alert("Data Tidak Boleh Kosong");
-                        document.getElementById("submitRincian").removeAttribute("data-dismiss");
-                    }else{ // Data Berhasil di Input
-                        if(moment(this.rincian.waktuSelesai).isBefore(this.rincian.waktuMulai)){
-                            alert("Waktu Mulai tidak boleh lebih dari Waktu Selesai!!!");
+                
+                if(this.jenis == "tambah"){
+                    if (this.dataKe != "") {
+                        this.rincians[this.dataKe-1] = this.rincian;
+                        let tmpRincian = this.rincians;
+                        this.rincians = [];
+                        this.rincians = tmpRincian;
+                        this.dataKe = "";
+                        document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+                    }else{
+                        //Error Jika Data Kosong
+                        if( !valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai){
+                            alert("Data Tidak Boleh Kosong");
                             document.getElementById("submitRincian").removeAttribute("data-dismiss");
-                        }else{
-                            this.rincians.push({...this.rincian});
-                            document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+                        }else{ // Data Berhasil di Input
+                            if (moment(this.rincian.waktuSelesai).isBefore(this.rincian.waktuMulai)) {
+                                alert("Waktu Mulai tidak boleh lebih dari Waktu Selesai!!!");
+                                document.getElementById("submitRincian").removeAttribute("data-dismiss");
+                                console.log("moment");
+                            }else{
+                                this.rincians.push({...this.rincian});
+                                document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+                                console.log("sukses");
+                            }
                         }
                     }
+                    this.rincian = {};                
+                }else{
+                    if (this.rincian && this.rincian.rincianID) {
+                        let idx = this.rincians.findIndex((obj => obj.rincianID == this.rincian.rincianID));
+                        this.rincians[idx] = this.rincian;
+                        console.log(this.rincian);
+                        document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+                    }else{
+                        //Error Jika Data Kosong
+                        if( !valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai){
+                            alert("Data Tidak Boleh Kosong");
+                            document.getElementById("submitRincian").removeAttribute("data-dismiss");
+                        }else{ 
+                            if(moment(this.rincian.waktuSelesai).isBefore(this.rincian.waktuMulai)){
+                                alert("Waktu Mulai tidak boleh lebih dari Waktu Selesai!!!");
+                                document.getElementById("submitRincian").removeAttribute("data-dismiss");
+                                console.log("moment1");
+                            }else{ // Data Berhasil di Input
+                                this.rincians.push({...this.rincian});
+                                document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+                                console.log("sukses1");
+                            }
+                        }
+                    }
+                    this.rincian = {};
                 }
-                this.rincian = {};
-                // if(valWaktuMulai )
             },
-            removeRincian(index){
-                this.rincians[index].isDeleted = true;
-
+            removeRincian: function(index) {
+            this.rincians.splice(index, 1);
             },
             editRincian(index){
                 this.rincian = {...this.rincians[index]};
+                this.dataKe = index+1;
             },
              refreshRincian() {
                 this.rincian = {};

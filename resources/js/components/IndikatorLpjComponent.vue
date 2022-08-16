@@ -109,8 +109,8 @@
                 }
                 this.indikator = {};
             },
-            removeIndikator(index){
-                this.indikators[index].isDeleted = true;
+            removeIndikator: function(index) {
+            this.indikators.splice(index, 1);
             },
             editIndikator(index){
                 this.indikator = {...this.indikators[index]};

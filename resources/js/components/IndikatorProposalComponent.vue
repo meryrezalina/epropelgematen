@@ -58,7 +58,7 @@
 
                     <div class="form-group">
                         <label for="pencapaianLPJ" class="col-form-label">Pencapaian LPJ:</label>
-                        <input type="text" class="form-control" id="pencapaianLPJ" name="pencapaianLPJ" placeholder="Masukkan Pencapaian LPJ" v-model="indikator.pencapaianLPJ">
+                        <input type="text" class="form-control" id="pencapaianLPJ" disabled name="pencapaianLPJ" placeholder="Masukkan Pencapaian LPJ" v-model="indikator.pencapaianLPJ">
                     </div>
                     </form>
                 </div>
@@ -77,11 +77,15 @@
      export default {
         data: () => ({
             indikators: [],
-            indikator: {}
+            indikator: {},
+            indikator: {},
+            jenis: [],
+            dataKe: ""
         }),
-        props: ['listOfIndikator'],
+        props: ['listOfIndikator', 'jenisData'],
         created(){
             this.indikators = this.listOfIndikator;
+            this.jenis = this.jenisData;
             this.indikators = this.listOfIndikator.map(v => ({...v, isDeleted: false}));
         },
         methods: {
@@ -89,28 +93,51 @@
                 this.indikator.isDeleted = false;
                 let valIndikatorDeskripsi = document.getElementById("indikatorDeskripsi").value;
                 let valTarget = document.getElementById("target").value;
-                let valPencapaianLpj = document.getElementById("pencapaianLPJ").value;
-            
-                if(this.indikator && this.indikator.indikatorPropelID){
-                    let idx = this.indikators.findIndex((obj => obj.indikatorPropelID == this.indikator.indikatorPropelID));
-                    this.indikators[idx] = this.indikator;
-                }else{
-                    //Error Jika Data Kosong
-                    if(!valIndikatorDeskripsi || !valTarget || !valPencapaianLpj){
-                        alert("Data Tidak Boleh Kosong");
-                        document.getElementById("submitIndikator").removeAttribute("data-dismiss");
-                    }else{ // Data Berhasil di Input
-                        this.indikators.push({...this.indikator});
+            console.log(this.jenis);
+                 if(this.jenis == "tambah"){
+                    if (this.dataKe != "") {
+                        this.indikators[this.dataKe-1] = this.indikator;
+                        let tmpIndikator = this.indikators;
+                        this.indikators = [];
+                        this.indikators = tmpIndikator;
+                        this.dataKe = "";
                         document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+                    }else{
+                        //Error Jika Data Kosong
+                        if( !valIndikatorDeskripsi || !valTarget){
+                            alert("Data Tidak Boleh Kosong");
+                            document.getElementById("submitIndikator").removeAttribute("data-dismiss");
+                        }else{ // Data Berhasil di Input
+                            this.indikators.push({...this.indikator});
+                            document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+                        }
                     }
+                    this.indikator = {};                
+                }else{
+                    if (this.indikator && this.indikator.indikatorID) {
+                        let idx = this.indikators.findIndex((obj => obj.indikatorID == this.indikator.indikatorID));
+                        this.indikators[idx] = this.indikator;
+                        document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+                    }else{
+                        //Error Jika Data Kosong
+                        if( !valIndikatorDeskripsi || !valTarget){
+                            alert("Data Tidak Boleh Kosong");
+                            document.getElementById("submitIndikator").removeAttribute("data-dismiss");
+                        }else{ // Data Berhasil di Input
+                            this.indikators.push({...this.indikator});
+                            document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+                        }
+                    }
+                    this.indikator = {};
                 }
-                this.indikator = {};
             },
-            removeIndikator(index){
-                this.indikators[index].isDeleted = true;
+            removeIndikator: function(index) {
+            this.indikators.splice(index, 1);
             },
             editIndikator(index){
                 this.indikator = {...this.indikators[index]};
+                this.dataKe = index+1;
+
             },
             refreshIndikator() {
                 this.indikator = {};

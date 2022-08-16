@@ -131,9 +131,11 @@
         data: () => ({
             anggarans: [],
             sumberDana: [],
-            anggaran: {}
+            anggaran: {},
+            jenis: [],
+            dataKe: ""
         }),
-        props: ['sumberDana', 'listOfAnggaran'],
+        props: ['sumberDana', 'listOfAnggaran', 'jenisData'],
 
         components:{
             AutoNumericVue
@@ -141,6 +143,7 @@
 
         created(){
             this.sumberDana = this.sumberDana;
+            this.jenis = this.jenisData;
             this.anggarans = this.listOfAnggaran.map(v => ({...v, isDeleted: false}));
         },
         methods: {
@@ -157,25 +160,49 @@
                 let valKuantitas = document.getElementById("kuantitas").value;
                 let valSatuan = document.getElementById("satuan").value;
                 let valSumberDana = document.getElementById("sumber").value;
-                if (this.anggaran && this.anggaran.pengeluaranID) {
-                    let idx = this.anggarans.findIndex((obj => obj.pengeluaranID == this.anggaran.pengeluaranID));
-                    this.anggarans[idx] = this.anggaran;
-                }else{
-                    if(!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan){
-                        alert("Data Tidak Boleh Kosong");
-                        document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
-                    }else{ // Data Berhasil di Input
-                        this.anggarans.push({...this.anggaran});
+                if(this.jenis == "tambah"){
+                    if (this.dataKe != "") {
+                        this.anggarans[this.dataKe-1] = this.anggaran;
+                        let tmpAnggaran = this.anggarans;
+                        this.anggarans = [];
+                        this.anggarans = tmpAnggaran;
+                        this.dataKe = "";
                         document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+                    }else{
+                        //Error Jika Data Kosong
+                        if(!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan){
+                            alert("Data Tidak Boleh Kosong");
+                            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+                        }else{ // Data Berhasil di Input
+                            this.anggarans.push({...this.anggaran});
+                            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+                        }
                     }
+                    this.anggaran = {};                
+                }else{
+                    if (this.anggaran && this.anggaran.pengeluaranID) {
+                        let idx = this.anggarans.findIndex((obj => obj.pengeluaranID == this.anggaran.pengeluaranID));
+                        this.anggarans[idx] = this.anggaran;
+                        document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+                    }else{
+                        //Error Jika Data Kosong
+                        if(!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan){
+                            alert("Data Tidak Boleh Kosong");
+                            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+                        }else{ // Data Berhasil di Input
+                            this.anggarans.push({...this.anggaran});
+                            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+                        }
+                    }
+                    this.anggaran = {};
                 }
-                this.anggaran = {};
             },
-            removeAnggaran(index){
-                this.anggarans[index].isDeleted = true;
+            removeAnggaran: function(index) {
+            this.anggarans.splice(index, 1);
             },
             editAnggaran(index) {
-                this.anggaran = {...this.anggarans[index]};
+               this.anggaran = {...this.anggarans[index] };
+                this.dataKe = index+1;
             },
             refreshAnggaran() {
                 this.anggaran = {};

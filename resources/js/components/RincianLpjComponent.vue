@@ -135,9 +135,8 @@
                 }
                 this.rincian = {};
             },
-            removeRincian(index){
-                this.rincians[index].isDeleted = true;
-
+            removeRincian: function(index) {
+            this.rincians.splice(index, 1);
             },
             editRincian(index){
                 this.rincian = {...this.rincians[index]};

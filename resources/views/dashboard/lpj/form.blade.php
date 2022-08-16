@@ -49,14 +49,21 @@
                                 <div class="form-group mb-0">
                                     <label for="anggaran">Pengeluaran LPJ</label>
                                 </div>
-                                <anggaran-lpj-component :sumber-dana="{{ $sum ?? json_encode(old('sum') ?? []) }}"
-                                    :list-of-anggaran="{{ json_encode($anggarans) ?? json_encode(old('anggarans') ?? []) }}">
-                                </anggaran-lpj-component>
+                                @if (isset($lpj))
+                                    <anggaran-lpj-component :sumber-dana="{{ $sum ?? json_encode(old('sum') ?? []) }}"
+                                        :list-of-anggaran="{{ json_encode($anggarans) ?? json_encode(old('anggarans') ?? []) }}"
+                                        :jenis-data="{{ json_encode('edit') }}"></anggaran-lpj-component>
+                                @else
+                                    <anggaran-lpj-component :sumber-dana="{{ $sum ?? json_encode(old('sum') ?? []) }}"
+                                        :list-of-anggaran="{{ json_encode($anggarans) ?? json_encode(old('anggarans') ?? []) }}"
+                                        :jenis-data="{{ json_encode('tambah') }}"></anggaran-lpj-component>
+                                @endif
                             </div>
                             @error('columns')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="saldo">Anggaran Proposal</label>
                             <input type="hidden" class="form-control" name="saldo" id="pengeluaran">

@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use Carbon\Carbon;
-use App\Models\Bidang;
-use App\Models\Timpel;
-use App\Models\Anggaran;
-use App\Models\Proposal;
-use App\Models\SumberDana;
-use Illuminate\Http\Request;
-use App\Exports\ProposalList;
 use App\Exports\ProposalExport;
-use App\Models\AnggaranProposal;
-use Illuminate\Support\Facades\Log;
+use App\Exports\ProposalList;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\AnggaranProposal;
+use App\Models\Bidang;
 use App\Models\IndikatorTargetProposal;
+use App\Models\Proposal;
 use App\Models\RincianKegiatanProposal;
+use App\Models\SumberDana;
+use App\Models\Timpel;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProposalController extends Controller
 {
@@ -48,8 +47,6 @@ class ProposalController extends Controller
             ->sortable(['created_at' => 'desc'])
             ->paginate(20);
 
-        
-
         $request = $request->all();
 
         return view('dashboard/proposal/list', compact('data_fk'), ['proposals' => $proposals,
@@ -59,16 +56,18 @@ class ProposalController extends Controller
     }
 
     //EXPORT PROPOSAL
-    public function proposalexport(){
+    public function proposalexport()
+    {
         $time = Carbon::now();
-        return Excel::download(new ProposalExport, 'proposal '.$time.'.xlsx');
-     }
+        return Excel::download(new ProposalExport, 'proposal ' . $time . '.xlsx');
+    }
 
-     public function proposallist(Proposal $proposals, AnggaranProposal $proposalID){
+    public function proposallist(Proposal $proposals, AnggaranProposal $proposalID)
+    {
         // dd($proposals);
         $time = Carbon::now();
-        return Excel::download(new ProposalList($proposals->proposalID), 'dataproposal '.$time.'.xlsx');
-     }
+        return Excel::download(new ProposalList($proposals->proposalID), 'dataproposal ' . $time . '.xlsx');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -105,16 +104,16 @@ class ProposalController extends Controller
     public function store(Request $request, Proposal $proposals)
     {
         $validator = Validator::make($request->all(), [
-            'bidangID'          => 'required',
-            'namaKegiatan'      => 'required',
-            'namaPJ'            => 'required',
-            'no_hp'             => 'required',
-            'sasaranStrategis'  => 'required',
-            'totalBiaya'         => 'required',
-            'status'            => 'required',
-            'anggarans'         => 'required',
-            'indikators'         => 'required',
-            'rincians'         => 'required',
+            'bidangID' => 'required',
+            'namaKegiatan' => 'required',
+            'namaPJ' => 'required',
+            'no_hp' => 'required',
+            'sasaranStrategis' => 'required',
+            'totalBiaya' => 'required',
+            'status' => 'required',
+            'anggarans' => 'required',
+            'indikators' => 'required',
+            'rincians' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -164,8 +163,7 @@ class ProposalController extends Controller
                 array_push($indikators, array(
                     'proposalID' => $currentProposalID,
                     'indikatorDeskripsi' => $indikator['indikatorDeskripsi'],
-                    'target' => $indikator['target'],
-                    'pencapaianLPJ' => $indikator['pencapaianLPJ'])
+                    'target' => $indikator['target'])
                 );
             }
             IndikatorTargetProposal::insert($indikators);
@@ -244,16 +242,16 @@ class ProposalController extends Controller
     public function update(Request $request, Proposal $proposals)
     {
         $validator = Validator::make($request->all(), [
-            'bidangID'          => 'required',
-            'namaKegiatan'      => 'required',
-            'namaPJ'            => 'required',
-            'no_hp'             => 'required',
-            'sasaranStrategis'  => 'required',
-            'totalBiaya'  => 'required',
-            'status'            => 'required',
-            'anggarans'         => 'required',
-            'indikators'         => 'required',
-            'rincians'         => 'required',
+            'bidangID' => 'required',
+            'namaKegiatan' => 'required',
+            'namaPJ' => 'required',
+            'no_hp' => 'required',
+            'sasaranStrategis' => 'required',
+            'totalBiaya' => 'required',
+            'status' => 'required',
+            'anggarans' => 'required',
+            'indikators' => 'required',
+            'rincians' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -323,7 +321,6 @@ class ProposalController extends Controller
                             'proposalID' => $currentProposalID,
                             'indikatorDeskripsi' => $indikator['indikatorDeskripsi'],
                             'target' => $indikator['target'],
-                            'pencapaianLPJ' => $indikator['pencapaianLPJ'],
                         ));
                     }
                 } else {

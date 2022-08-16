@@ -2122,12 +2122,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       anggarans: [],
       sumberDana: [],
-      anggaran: {}
+      anggaran: {},
+      jenis: [],
+      dataKe: ""
     };
   },
-  props: ['sumberDana', 'listOfAnggaran'],
+  props: ['sumberDana', 'listOfAnggaran', 'jenisData'],
   created: function created() {
     this.sumberDana = this.sumberDana;
+    this.jenis = this.jenisData;
     this.anggarans = this.listOfAnggaran.map(function (v) {
       return _objectSpread(_objectSpread({}, v), {}, {
         isDeleted: false
@@ -2151,30 +2154,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var valKuantitas = document.getElementById("kuantitas").value;
       var valSumberDana = document.getElementById("sumber").value;
 
-      if (this.anggaran && this.anggaran.anggaranPropelID) {
-        var idx = this.anggarans.findIndex(function (obj) {
-          return obj.anggaranPropelID == _this.anggaran.anggaranPropelID;
-        });
-        this.anggarans[idx] = this.anggaran;
-      } else {
-        //Error Jika Data Kosong
-        if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana) {
-          alert("Data Tidak Boleh Kosong");
-          document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
-        } else {
-          // Data Berhasil di Input
-          this.anggarans.push(_objectSpread({}, this.anggaran));
+      if (this.jenis == "tambah") {
+        if (this.dataKe != "") {
+          this.anggarans[this.dataKe - 1] = this.anggaran;
+          var tmpAnggaran = this.anggarans;
+          this.anggarans = [];
+          this.anggarans = tmpAnggaran;
+          this.dataKe = "";
           document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+        } else {
+          //Error Jika Data Kosong
+          if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana) {
+            alert("Data Tidak Boleh Kosong");
+            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+          } else {
+            // Data Berhasil di Input
+            this.anggarans.push(_objectSpread({}, this.anggaran));
+            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+          }
         }
-      }
 
-      this.anggaran = {};
+        this.anggaran = {};
+      } else {
+        if (this.anggaran && this.anggaran.anggaranPropelID) {
+          var idx = this.anggarans.findIndex(function (obj) {
+            return obj.anggaranPropelID == _this.anggaran.anggaranPropelID;
+          });
+          this.anggarans[idx] = this.anggaran;
+          document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+        } else {
+          //Error Jika Data Kosong
+          if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana) {
+            alert("Data Tidak Boleh Kosong");
+            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+          } else {
+            // Data Berhasil di Input
+            this.anggarans.push(_objectSpread({}, this.anggaran));
+            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+          }
+        }
+
+        this.anggaran = {};
+      }
     },
     removeAnggaran: function removeAnggaran(index) {
-      this.anggarans[index].isDeleted = true;
+      this.anggarans.splice(index, 1);
     },
     editAnggaran: function editAnggaran(index) {
       this.anggaran = _objectSpread({}, this.anggarans[index]);
+      this.dataKe = index + 1;
     },
     refreshAnggaran: function refreshAnggaran() {
       this.anggaran = {};
@@ -2340,15 +2368,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       anggarans: [],
       sumberDana: [],
-      anggaran: {}
+      anggaran: {},
+      jenis: [],
+      dataKe: ""
     };
   },
-  props: ['sumberDana', 'listOfAnggaran'],
+  props: ['sumberDana', 'listOfAnggaran', 'jenisData'],
   components: {
     AutoNumericVue: autonumeric_vue_src_components_AutoNumericVue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   created: function created() {
     this.sumberDana = this.sumberDana;
+    this.jenis = this.jenisData;
     this.anggarans = this.listOfAnggaran.map(function (v) {
       return _objectSpread(_objectSpread({}, v), {}, {
         isDeleted: false
@@ -2370,29 +2401,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var valSatuan = document.getElementById("satuan").value;
       var valSumberDana = document.getElementById("sumber").value;
 
-      if (this.anggaran && this.anggaran.pengeluaranID) {
-        var idx = this.anggarans.findIndex(function (obj) {
-          return obj.pengeluaranID == _this.anggaran.pengeluaranID;
-        });
-        this.anggarans[idx] = this.anggaran;
-      } else {
-        if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
-          alert("Data Tidak Boleh Kosong");
-          document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
-        } else {
-          // Data Berhasil di Input
-          this.anggarans.push(_objectSpread({}, this.anggaran));
+      if (this.jenis == "tambah") {
+        if (this.dataKe != "") {
+          this.anggarans[this.dataKe - 1] = this.anggaran;
+          var tmpAnggaran = this.anggarans;
+          this.anggarans = [];
+          this.anggarans = tmpAnggaran;
+          this.dataKe = "";
           document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+        } else {
+          //Error Jika Data Kosong
+          if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
+            alert("Data Tidak Boleh Kosong");
+            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+          } else {
+            // Data Berhasil di Input
+            this.anggarans.push(_objectSpread({}, this.anggaran));
+            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+          }
         }
-      }
 
-      this.anggaran = {};
+        this.anggaran = {};
+      } else {
+        if (this.anggaran && this.anggaran.pengeluaranID) {
+          var idx = this.anggarans.findIndex(function (obj) {
+            return obj.pengeluaranID == _this.anggaran.pengeluaranID;
+          });
+          this.anggarans[idx] = this.anggaran;
+          document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+        } else {
+          //Error Jika Data Kosong
+          if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
+            alert("Data Tidak Boleh Kosong");
+            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+          } else {
+            // Data Berhasil di Input
+            this.anggarans.push(_objectSpread({}, this.anggaran));
+            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+          }
+        }
+
+        this.anggaran = {};
+      }
     },
     removeAnggaran: function removeAnggaran(index) {
-      this.anggarans[index].isDeleted = true;
+      this.anggarans.splice(index, 1);
     },
     editAnggaran: function editAnggaran(index) {
       this.anggaran = _objectSpread({}, this.anggarans[index]);
+      this.dataKe = index + 1;
     },
     refreshAnggaran: function refreshAnggaran() {
       this.anggaran = {};
@@ -2557,15 +2614,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       anggarans: [],
       sumberDana: [],
-      anggaran: {}
+      anggaran: {},
+      jenis: [],
+      dataKe: ""
     };
   },
-  props: ['sumberDana', 'listOfAnggaran'],
+  props: ['sumberDana', 'listOfAnggaran', 'jenisData'],
   components: {
     AutoNumericVue: autonumeric_vue_src_components_AutoNumericVue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   created: function created() {
     this.sumberDana = this.sumberDana;
+    this.jenis = this.jenisData;
     this.anggarans = this.listOfAnggaran.map(function (v) {
       return _objectSpread(_objectSpread({}, v), {}, {
         isDeleted: false
@@ -2587,30 +2647,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var valSatuan = document.getElementById("satuan").value;
       var valSumberDana = document.getElementById("sumber").value;
 
-      if (this.anggaran && this.anggaran.anggaranID) {
-        var idx = this.anggarans.findIndex(function (obj) {
-          return obj.anggaranID == _this.anggaran.anggaranID;
-        });
-        this.anggarans[idx] = this.anggaran;
-      } else {
-        //Error Jika Data Kosong
-        if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
-          alert("Data Tidak Boleh Kosong");
-          document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
-        } else {
-          // Data Berhasil di Input
-          this.anggarans.push(_objectSpread({}, this.anggaran));
+      if (this.jenis == "tambah") {
+        if (this.dataKe != "") {
+          this.anggarans[this.dataKe - 1] = this.anggaran;
+          var tmpAnggaran = this.anggarans;
+          this.anggarans = [];
+          this.anggarans = tmpAnggaran;
+          this.dataKe = "";
           document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+        } else {
+          //Error Jika Data Kosong
+          if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
+            alert("Data Tidak Boleh Kosong");
+            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+          } else {
+            // Data Berhasil di Input
+            this.anggarans.push(_objectSpread({}, this.anggaran));
+            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+          }
         }
-      }
 
-      this.anggaran = {};
+        this.anggaran = {};
+      } else {
+        if (this.anggaran && this.anggaran.anggaranID) {
+          var idx = this.anggarans.findIndex(function (obj) {
+            return obj.anggaranID == _this.anggaran.anggaranID;
+          });
+          this.anggarans[idx] = this.anggaran;
+          document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+        } else {
+          //Error Jika Data Kosong
+          if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
+            alert("Data Tidak Boleh Kosong");
+            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+          } else {
+            // Data Berhasil di Input
+            this.anggarans.push(_objectSpread({}, this.anggaran));
+            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+          }
+        }
+
+        this.anggaran = {};
+      }
     },
     removeAnggaran: function removeAnggaran(index) {
-      this.anggarans[index].isDeleted = true;
+      this.anggarans.splice(index, 1);
     },
     editAnggaran: function editAnggaran(index) {
       this.anggaran = _objectSpread({}, this.anggarans[index]);
+      this.dataKe = index + 1;
     },
     refreshAnggaran: function refreshAnggaran() {
       this.anggaran = {};
@@ -2758,12 +2843,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       indikators: [],
-      indikator: {}
+      indikator: {},
+      jenis: [],
+      dataKe: ""
     };
   },
-  props: ['listOfIndikator'],
+  props: ['listOfIndikator', 'jenisData'],
   created: function created() {
     this.indikators = this.listOfIndikator;
+    this.jenis = this.jenisData;
     this.indikators = this.listOfIndikator.map(function (v) {
       return _objectSpread(_objectSpread({}, v), {}, {
         isDeleted: false
@@ -2777,32 +2865,56 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.indikator.isDeleted = false;
       var valIndikatorDeskripsi = document.getElementById("indikatorDeskripsi").value;
       var valTarget = document.getElementById("target").value;
-      var valPencapaianLpj = document.getElementById("pencapaianLPJ").value;
 
-      if (this.indikator && this.indikator.indikatorPropelID) {
-        var idx = this.indikators.findIndex(function (obj) {
-          return obj.indikatorPropelID == _this.indikator.indikatorPropelID;
-        });
-        this.indikators[idx] = this.indikator;
-      } else {
-        //Error Jika Data Kosong
-        if (!valIndikatorDeskripsi || !valTarget || !valPencapaianLpj) {
-          alert("Data Tidak Boleh Kosong");
-          document.getElementById("submitIndikator").removeAttribute("data-dismiss");
-        } else {
-          // Data Berhasil di Input
-          this.indikators.push(_objectSpread({}, this.indikator));
+      if (this.jenis == "tambah") {
+        if (this.dataKe != "") {
+          this.indikators[this.dataKe - 1] = this.indikator;
+          var tmpIndikator = this.indikators;
+          this.indikators = [];
+          this.indikators = tmpIndikator;
+          this.dataKe = "";
           document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+        } else {
+          //Error Jika Data Kosong
+          if (!valIndikatorDeskripsi || !valTarget) {
+            alert("Data Tidak Boleh Kosong");
+            document.getElementById("submitIndikator").removeAttribute("data-dismiss");
+          } else {
+            // Data Berhasil di Input
+            this.indikators.push(_objectSpread({}, this.indikator));
+            document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+          }
         }
-      }
 
-      this.indikator = {};
+        this.indikator = {};
+      } else {
+        if (this.indikator && this.indikator.indikatorPropelID) {
+          var idx = this.indikators.findIndex(function (obj) {
+            return obj.indikatorPropelID == _this.indikator.indikatorPropelID;
+          });
+          this.indikators[idx] = this.indikator;
+          document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+        } else {
+          //Error Jika Data Kosong
+          if (!valIndikatorDeskripsi || !valTarget) {
+            alert("Data Tidak Boleh Kosong");
+            document.getElementById("submitIndikator").removeAttribute("data-dismiss");
+          } else {
+            // Data Berhasil di Input
+            this.indikators.push(_objectSpread({}, this.indikator));
+            document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+          }
+        }
+
+        this.indikator = {};
+      }
     },
     removeIndikator: function removeIndikator(index) {
-      this.indikators[index].isDeleted = true;
+      this.indikators.splice(index, 1);
     },
     editIndikator: function editIndikator(index) {
       this.indikator = _objectSpread({}, this.indikators[index]);
+      this.dataKe = index + 1;
     },
     refreshIndikator: function refreshIndikator() {
       this.indikator = {};
@@ -2951,7 +3063,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.indikator = {};
     },
     removeIndikator: function removeIndikator(index) {
-      this.indikators[index].isDeleted = true;
+      this.indikators.splice(index, 1);
     },
     editIndikator: function editIndikator(index) {
       this.indikator = _objectSpread({}, this.indikators[index]);
@@ -3056,14 +3168,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
       indikators: [],
       indikator: {}
-    };
+    }, _defineProperty(_ref, "indikator", {}), _defineProperty(_ref, "jenis", []), _defineProperty(_ref, "dataKe", ""), _ref;
   },
-  props: ['listOfIndikator'],
+  props: ['listOfIndikator', 'jenisData'],
   created: function created() {
     this.indikators = this.listOfIndikator;
+    this.jenis = this.jenisData;
     this.indikators = this.listOfIndikator.map(function (v) {
       return _objectSpread(_objectSpread({}, v), {}, {
         isDeleted: false
@@ -3077,32 +3192,57 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.indikator.isDeleted = false;
       var valIndikatorDeskripsi = document.getElementById("indikatorDeskripsi").value;
       var valTarget = document.getElementById("target").value;
-      var valPencapaianLpj = document.getElementById("pencapaianLPJ").value;
+      console.log(this.jenis);
 
-      if (this.indikator && this.indikator.indikatorPropelID) {
-        var idx = this.indikators.findIndex(function (obj) {
-          return obj.indikatorPropelID == _this.indikator.indikatorPropelID;
-        });
-        this.indikators[idx] = this.indikator;
-      } else {
-        //Error Jika Data Kosong
-        if (!valIndikatorDeskripsi || !valTarget || !valPencapaianLpj) {
-          alert("Data Tidak Boleh Kosong");
-          document.getElementById("submitIndikator").removeAttribute("data-dismiss");
-        } else {
-          // Data Berhasil di Input
-          this.indikators.push(_objectSpread({}, this.indikator));
+      if (this.jenis == "tambah") {
+        if (this.dataKe != "") {
+          this.indikators[this.dataKe - 1] = this.indikator;
+          var tmpIndikator = this.indikators;
+          this.indikators = [];
+          this.indikators = tmpIndikator;
+          this.dataKe = "";
           document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+        } else {
+          //Error Jika Data Kosong
+          if (!valIndikatorDeskripsi || !valTarget) {
+            alert("Data Tidak Boleh Kosong");
+            document.getElementById("submitIndikator").removeAttribute("data-dismiss");
+          } else {
+            // Data Berhasil di Input
+            this.indikators.push(_objectSpread({}, this.indikator));
+            document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+          }
         }
-      }
 
-      this.indikator = {};
+        this.indikator = {};
+      } else {
+        if (this.indikator && this.indikator.indikatorID) {
+          var idx = this.indikators.findIndex(function (obj) {
+            return obj.indikatorID == _this.indikator.indikatorID;
+          });
+          this.indikators[idx] = this.indikator;
+          document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+        } else {
+          //Error Jika Data Kosong
+          if (!valIndikatorDeskripsi || !valTarget) {
+            alert("Data Tidak Boleh Kosong");
+            document.getElementById("submitIndikator").removeAttribute("data-dismiss");
+          } else {
+            // Data Berhasil di Input
+            this.indikators.push(_objectSpread({}, this.indikator));
+            document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+          }
+        }
+
+        this.indikator = {};
+      }
     },
     removeIndikator: function removeIndikator(index) {
-      this.indikators[index].isDeleted = true;
+      this.indikators.splice(index, 1);
     },
     editIndikator: function editIndikator(index) {
       this.indikator = _objectSpread({}, this.indikators[index]);
+      this.dataKe = index + 1;
     },
     refreshIndikator: function refreshIndikator() {
       this.indikator = {};
@@ -3222,12 +3362,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       rincians: [],
-      rincian: {}
+      rincian: {},
+      jenis: [],
+      dataKe: ""
     };
   },
-  props: ['listOfRincian'],
+  props: ['listOfRincian', 'jenisData'],
   created: function created() {
     this.rincians = this.listOfRincian;
+    this.jenis = this.jenisData;
     this.rincians = this.listOfRincian.map(function (v) {
       return _objectSpread(_objectSpread({}, v), {}, {
         isDeleted: false
@@ -3253,35 +3396,69 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var valWaktuMulai = document.getElementById("waktuMulai").value;
       var valWaktuSelesai = document.getElementById("waktuSelesai").value;
 
-      if (this.rincian && this.rincian.rincianPropelID) {
-        var idx = this.rincians.findIndex(function (obj) {
-          return obj.rincianPropelID == _this.rincian.rincianPropelID;
-        });
-        this.rincians[idx] = this.rincian;
-      } else {
-        //Error Jika Data Kosong
-        if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
-          alert("Data Tidak Boleh Kosong");
-          document.getElementById("submitRincian").removeAttribute("data-dismiss");
+      if (this.jenis == "tambah") {
+        if (this.dataKe != "") {
+          this.rincians[this.dataKe - 1] = this.rincian;
+          var tmpRincian = this.rincians;
+          this.rincians = [];
+          this.rincians = tmpRincian;
+          this.dataKe = "";
+          document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
         } else {
-          // Data Berhasil di Input
-          if (moment__WEBPACK_IMPORTED_MODULE_1___default()(this.rincian.waktuSelesai).isBefore(this.rincian.waktuMulai)) {
-            alert("Waktu Mulai tidak boleh lebih dari Waktu Selesai!!!");
+          //Error Jika Data Kosong
+          if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
+            alert("Data Tidak Boleh Kosong");
             document.getElementById("submitRincian").removeAttribute("data-dismiss");
           } else {
-            this.rincians.push(_objectSpread({}, this.rincian));
-            document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+            // Data Berhasil di Input
+            if (moment__WEBPACK_IMPORTED_MODULE_1___default()(this.rincian.waktuSelesai).isBefore(this.rincian.waktuMulai)) {
+              alert("Waktu Mulai tidak boleh lebih dari Waktu Selesai!!!");
+              document.getElementById("submitRincian").removeAttribute("data-dismiss");
+              console.log("moment");
+            } else {
+              this.rincians.push(_objectSpread({}, this.rincian));
+              document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+              console.log("sukses");
+            }
           }
         }
-      }
 
-      this.rincian = {};
+        this.rincian = {};
+      } else {
+        if (this.rincian && this.rincian.rincianPropelID) {
+          var idx = this.rincians.findIndex(function (obj) {
+            return obj.rincianPropelID == _this.rincian.rincianPropelID;
+          });
+          this.rincians[idx] = this.rincian;
+          document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+        } else {
+          //Error Jika Data Kosong
+          if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
+            alert("Data Tidak Boleh Kosong");
+            document.getElementById("submitRincian").removeAttribute("data-dismiss");
+          } else {
+            if (moment__WEBPACK_IMPORTED_MODULE_1___default()(this.rincian.waktuSelesai).isBefore(this.rincian.waktuMulai)) {
+              alert("Waktu Mulai tidak boleh lebih dari Waktu Selesai!!!");
+              document.getElementById("submitRincian").removeAttribute("data-dismiss");
+              console.log("moment1");
+            } else {
+              // Data Berhasil di Input
+              this.rincians.push(_objectSpread({}, this.rincian));
+              document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+              console.log("sukses1");
+            }
+          }
+        }
+
+        this.rincian = {};
+      }
     },
     removeRincian: function removeRincian(index) {
-      this.rincians[index].isDeleted = true;
+      this.rincians.splice(index, 1);
     },
     editRincian: function editRincian(index) {
       this.rincian = _objectSpread({}, this.rincians[index]);
+      this.dataKe = index + 1;
     },
     refreshRincian: function refreshRincian() {
       this.rincian = {};
@@ -3459,7 +3636,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.rincian = {};
     },
     removeRincian: function removeRincian(index) {
-      this.rincians[index].isDeleted = true;
+      this.rincians.splice(index, 1);
     },
     editRincian: function editRincian(index) {
       this.rincian = _objectSpread({}, this.rincians[index]);
@@ -3584,12 +3761,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       rincians: [],
-      rincian: {}
+      rincian: {},
+      jenis: [],
+      dataKe: ""
     };
   },
-  props: ['listOfRincian'],
+  props: ['listOfRincian', 'jenisData'],
   created: function created() {
     this.rincians = this.listOfRincian;
+    this.jenis = this.jenisData;
     this.rincians = this.listOfRincian.map(function (v) {
       return _objectSpread(_objectSpread({}, v), {}, {
         isDeleted: false
@@ -3615,35 +3795,70 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var valWaktuMulai = document.getElementById("waktuMulai").value;
       var valWaktuSelesai = document.getElementById("waktuSelesai").value;
 
-      if (this.rincian && this.rincian.rincianPropelID) {
-        var idx = this.rincians.findIndex(function (obj) {
-          return obj.rincianPropelID == _this.rincian.rincianPropelID;
-        });
-        this.rincians[idx] = this.rincian;
-      } else {
-        //Error Jika Data Kosong
-        if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
-          alert("Data Tidak Boleh Kosong");
-          document.getElementById("submitRincian").removeAttribute("data-dismiss");
+      if (this.jenis == "tambah") {
+        if (this.dataKe != "") {
+          this.rincians[this.dataKe - 1] = this.rincian;
+          var tmpRincian = this.rincians;
+          this.rincians = [];
+          this.rincians = tmpRincian;
+          this.dataKe = "";
+          document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
         } else {
-          // Data Berhasil di Input
-          if (moment__WEBPACK_IMPORTED_MODULE_1___default()(this.rincian.waktuSelesai).isBefore(this.rincian.waktuMulai)) {
-            alert("Waktu Mulai tidak boleh lebih dari Waktu Selesai!!!");
+          //Error Jika Data Kosong
+          if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
+            alert("Data Tidak Boleh Kosong");
             document.getElementById("submitRincian").removeAttribute("data-dismiss");
           } else {
-            this.rincians.push(_objectSpread({}, this.rincian));
-            document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+            // Data Berhasil di Input
+            if (moment__WEBPACK_IMPORTED_MODULE_1___default()(this.rincian.waktuSelesai).isBefore(this.rincian.waktuMulai)) {
+              alert("Waktu Mulai tidak boleh lebih dari Waktu Selesai!!!");
+              document.getElementById("submitRincian").removeAttribute("data-dismiss");
+              console.log("moment");
+            } else {
+              this.rincians.push(_objectSpread({}, this.rincian));
+              document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+              console.log("sukses");
+            }
           }
         }
-      }
 
-      this.rincian = {}; // if(valWaktuMulai )
+        this.rincian = {};
+      } else {
+        if (this.rincian && this.rincian.rincianID) {
+          var idx = this.rincians.findIndex(function (obj) {
+            return obj.rincianID == _this.rincian.rincianID;
+          });
+          this.rincians[idx] = this.rincian;
+          console.log(this.rincian);
+          document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+        } else {
+          //Error Jika Data Kosong
+          if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
+            alert("Data Tidak Boleh Kosong");
+            document.getElementById("submitRincian").removeAttribute("data-dismiss");
+          } else {
+            if (moment__WEBPACK_IMPORTED_MODULE_1___default()(this.rincian.waktuSelesai).isBefore(this.rincian.waktuMulai)) {
+              alert("Waktu Mulai tidak boleh lebih dari Waktu Selesai!!!");
+              document.getElementById("submitRincian").removeAttribute("data-dismiss");
+              console.log("moment1");
+            } else {
+              // Data Berhasil di Input
+              this.rincians.push(_objectSpread({}, this.rincian));
+              document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+              console.log("sukses1");
+            }
+          }
+        }
+
+        this.rincian = {};
+      }
     },
     removeRincian: function removeRincian(index) {
-      this.rincians[index].isDeleted = true;
+      this.rincians.splice(index, 1);
     },
     editRincian: function editRincian(index) {
       this.rincian = _objectSpread({}, this.rincians[index]);
+      this.dataKe = index + 1;
     },
     refreshRincian: function refreshRincian() {
       this.rincian = {};
@@ -63636,8 +63851,9 @@ var render = function () {
                       attrs: {
                         type: "text",
                         id: "pencapaianLPJ",
+                        disabled: "",
                         name: "pencapaianLPJ",
-                        placeholder: "Masukkan Pencapaian LPJ",
+                        placeholder: "Dapat diisi saat pembuatan LPJ",
                       },
                       domProps: { value: _vm.indikator.pencapaianLPJ },
                       on: {
@@ -64554,6 +64770,7 @@ var render = function () {
                       attrs: {
                         type: "text",
                         id: "pencapaianLPJ",
+                        disabled: "",
                         name: "pencapaianLPJ",
                         placeholder: "Masukkan Pencapaian LPJ",
                       },
@@ -65875,19 +66092,19 @@ var render = function () {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: rincian.rincianPropelID,
-                    expression: "rincian.rincianPropelID",
+                    value: rincian.rincianID,
+                    expression: "rincian.rincianID",
                   },
                 ],
                 staticClass: "form-control",
                 attrs: { type: "hidden", name: "rincians[" + index + "][id]" },
-                domProps: { value: rincian.rincianPropelID },
+                domProps: { value: rincian.rincianID },
                 on: {
                   input: function ($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(rincian, "rincianPropelID", $event.target.value)
+                    _vm.$set(rincian, "rincianID", $event.target.value)
                   },
                 },
               }),
