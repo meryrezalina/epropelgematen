@@ -50,11 +50,13 @@ class PropelController extends Controller
 
         $request = $request->all();
 
-        return view('dashboard/propel/list', compact('data_fk'), ['propel' => $propel,
+        return view('dashboard/propel/list', compact('data_fk'), [
+            'propel' => $propel,
             'request' => $request,
             'bidang' => $bidang,
             'active' => $active,
-            'data_fk' => $data_fk, 'anggarans' => $anggarans]);
+            'data_fk' => $data_fk, 'anggarans' => $anggarans
+        ]);
     }
 
     public function propelexport()
@@ -136,12 +138,15 @@ class PropelController extends Controller
             $currentPropelID = $propel->propelID;
             $anggarans = array();
             foreach ($request->input('anggarans') as $anggaran) {
-                array_push($anggarans, array(
-                    'propelID' => $currentPropelID,
-                    'anggaranDeskripsi' => $anggaran['anggaranDeskripsi'],
-                    'hargaSatuan' => $anggaran['hargaSatuan'],
-                    'kuantitas' => $anggaran['kuantitas'],
-                    'sumberID' => $anggaran['sumberID'])
+                array_push(
+                    $anggarans,
+                    array(
+                        'propelID' => $currentPropelID,
+                        'anggaranDeskripsi' => $anggaran['anggaranDeskripsi'],
+                        'hargaSatuan' => $anggaran['hargaSatuan'],
+                        'kuantitas' => $anggaran['kuantitas'],
+                        'sumberID' => $anggaran['sumberID']
+                    )
                 );
             }
             Anggaran::insert($anggarans);
@@ -149,10 +154,13 @@ class PropelController extends Controller
             //INDIKATOR TARGET INSERT
             $indikators = array();
             foreach ($request->input('indikators') as $indikator) {
-                array_push($indikators, array(
-                    'propelID' => $currentPropelID,
-                    'indikatorDeskripsi' => $indikator['indikatorDeskripsi'],
-                    'target' => $indikator['target'])
+                array_push(
+                    $indikators,
+                    array(
+                        'propelID' => $currentPropelID,
+                        'indikatorDeskripsi' => $indikator['indikatorDeskripsi'],
+                        'target' => $indikator['target']
+                    )
                     // 'pencapaianLPJ'         => $indikator['pencapaianLPJ'])
                 );
             }
@@ -165,12 +173,15 @@ class PropelController extends Controller
                 $parseWaktuSelesai = $rincian['waktuSelesai'];
                 $stringWaktuMulai = strstr($parseWaktuMulai, "(", true);
                 $stringWaktuSelesai = strstr($parseWaktuSelesai, "(", true);
-                array_push($rincians, array(
-                    'propelID' => $currentPropelID,
-                    'rincianDeskripsi' => $rincian['rincianDeskripsi'],
-                    'tempat' => $rincian['tempat'],
-                    'waktuMulai' => Carbon::parse($stringWaktuMulai)->format('Y-m-d'),
-                    'waktuSelesai' => Carbon::parse($stringWaktuSelesai)->format('Y-m-d'))
+                array_push(
+                    $rincians,
+                    array(
+                        'propelID' => $currentPropelID,
+                        'rincianDeskripsi' => $rincian['rincianDeskripsi'],
+                        'tempat' => $rincian['tempat'],
+                        'waktuMulai' => Carbon::parse($stringWaktuMulai)->format('Y-m-d'),
+                        'waktuSelesai' => Carbon::parse($stringWaktuSelesai)->format('Y-m-d')
+                    )
                 );
             }
             RincianKegiatan::insert($rincians);
@@ -179,7 +190,6 @@ class PropelController extends Controller
                 ->route('dashboard.propel')
                 ->with('message', __('message.create', ['propel' => $request->input('propel')]));
         }
-
     }
 
     /**
@@ -211,14 +221,17 @@ class PropelController extends Controller
         $sum = SumberDana::all();
         $indikators = $propel->indikatorTarget()->get();
         $rincians = $propel->rincianKegiatan()->get();
-        return view('dashboard/propel/form', compact('bid', 'tim', 'anggaranpropel', 'timByBidang', 'sum', 'anggarans', 'indikators', 'rincians'),
+        return view(
+            'dashboard/propel/form',
+            compact('bid', 'tim', 'anggaranpropel', 'timByBidang', 'sum', 'anggarans', 'indikators', 'rincians'),
             [
                 'active' => $active,
                 'propel' => $propel,
                 'propels' => $propels,
                 'button' => 'Update',
                 'url' => 'dashboard.propel.update',
-            ]);
+            ]
+        );
     }
 
     /**
@@ -267,21 +280,26 @@ class PropelController extends Controller
                     if ($anggaran['isDeleted'] == 'true') {
                         Anggaran::where('anggaranPropelID', '=', $anggaran['id'])->delete();
                     } else {
-                        Anggaran::where('anggaranPropelID', '=', $anggaran['id'])->update(array(
+                        Anggaran::where('anggaranPropelID', '=', $anggaran['id'])->update(
+                            array(
+                                'propelID' => $currentPropelID,
+                                'anggaranDeskripsi' => $anggaran['anggaranDeskripsi'],
+                                'hargaSatuan' => $anggaran['hargaSatuan'],
+                                'kuantitas' => $anggaran['kuantitas'],
+                                'sumberID' => $anggaran['sumberID']
+                            )
+                        );
+                    }
+                } else {
+                    array_push(
+                        $anggarans,
+                        array(
                             'propelID' => $currentPropelID,
                             'anggaranDeskripsi' => $anggaran['anggaranDeskripsi'],
                             'hargaSatuan' => $anggaran['hargaSatuan'],
                             'kuantitas' => $anggaran['kuantitas'],
-                            'sumberID' => $anggaran['sumberID'])
-                        );
-                    }
-                } else {
-                    array_push($anggarans, array(
-                        'propelID' => $currentPropelID,
-                        'anggaranDeskripsi' => $anggaran['anggaranDeskripsi'],
-                        'hargaSatuan' => $anggaran['hargaSatuan'],
-                        'kuantitas' => $anggaran['kuantitas'],
-                        'sumberID' => $anggaran['sumberID'])
+                            'sumberID' => $anggaran['sumberID']
+                        )
                     );
                 }
             }
@@ -309,11 +327,14 @@ class PropelController extends Controller
                     }
                 } else {
                     Log::info('id null');
-                    array_push($indikators, array(
-                        'propelID' => $currentPropelID,
-                        'indikatorDeskripsi' => $indikator['indikatorDeskripsi'],
-                        'target' => $indikator['target'],
-                        'pencapaianLPJ' => $indikator['pencapaianLPJ'])
+                    array_push(
+                        $indikators,
+                        array(
+                            'propelID' => $currentPropelID,
+                            'indikatorDeskripsi' => $indikator['indikatorDeskripsi'],
+                            'target' => $indikator['target'],
+                            'pencapaianLPJ' => $indikator['pencapaianLPJ']
+                        )
                     );
                 }
             }
@@ -339,12 +360,15 @@ class PropelController extends Controller
                         ));
                     }
                 } else {
-                    array_push($rincians, array(
-                        'propelID' => $currentPropelID,
-                        'rincianDeskripsi' => $rincian['rincianDeskripsi'],
-                        'tempat' => $rincian['tempat'],
-                        'waktuMulai' => $rincian['waktuMulai'],
-                        'waktuSelesai' => $rincian['waktuSelesai'])
+                    array_push(
+                        $rincians,
+                        array(
+                            'propelID' => $currentPropelID,
+                            'rincianDeskripsi' => $rincian['rincianDeskripsi'],
+                            'tempat' => $rincian['tempat'],
+                            'waktuMulai' => $rincian['waktuMulai'],
+                            'waktuSelesai' => $rincian['waktuSelesai']
+                        )
                     );
                 }
             }
