@@ -2116,6 +2116,150 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2127,7 +2271,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dataKe: ""
     };
   },
-  props: ['sumberDana', 'listOfAnggaran', 'jenisData'],
+  props: ["sumberDana", "listOfAnggaran", "jenisData"],
   created: function created() {
     this.sumberDana = this.sumberDana;
     this.jenis = this.jenisData;
@@ -2142,9 +2286,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     formatPrice: function formatPrice(value) {
-      var val = (value / 1).toFixed(0).replace('.', ',');
+      var val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
+    cekform: function cekform() {},
     addAnggaran: function addAnggaran() {
       var _this = this;
 
@@ -2155,18 +2300,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var valSumberDana = document.getElementById("sumber").value;
 
       if (this.jenis == "tambah") {
-        if (this.dataKe != "") {
-          this.anggarans[this.dataKe - 1] = this.anggaran;
-          var tmpAnggaran = this.anggarans;
-          this.anggarans = [];
-          this.anggarans = tmpAnggaran;
-          this.dataKe = "";
-          document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+        if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+          if (this.dataKe != "") {
+            this.anggarans[this.dataKe - 1] = this.anggaran;
+            var tmpAnggaran = this.anggarans;
+            this.anggarans = [];
+            this.anggarans = tmpAnggaran;
+            this.dataKe = "";
+            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
           } else {
             // Data Berhasil di Input
             this.anggarans.push(_objectSpread({}, this.anggaran));
@@ -2176,17 +2320,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         this.anggaran = {};
       } else {
-        if (this.anggaran && this.anggaran.anggaranPropelID) {
-          var idx = this.anggarans.findIndex(function (obj) {
-            return obj.anggaranPropelID == _this.anggaran.anggaranPropelID;
-          });
-          this.anggarans[idx] = this.anggaran;
-          document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+        if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+          if (this.anggaran && this.anggaran.anggaranPropelID) {
+            var idx = this.anggarans.findIndex(function (obj) {
+              return obj.anggaranPropelID == _this.anggaran.anggaranPropelID;
+            });
+            this.anggarans[idx] = this.anggaran;
+            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
           } else {
             // Data Berhasil di Input
             this.anggarans.push(_objectSpread({}, this.anggaran));
@@ -2210,7 +2353,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: {
     total: function total() {
-      console.log(this.anggarans);
       return this.anggarans.reduce(function (total, anggaran) {
         return total + anggaran.hargaSatuan * anggaran.kuantitas;
       }, 0);
@@ -2362,6 +2504,169 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2373,7 +2678,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dataKe: ""
     };
   },
-  props: ['sumberDana', 'listOfAnggaran', 'jenisData'],
+  props: ["sumberDana", "listOfAnggaran", "jenisData"],
   components: {
     AutoNumericVue: autonumeric_vue_src_components_AutoNumericVue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -2388,7 +2693,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     formatPrice: function formatPrice(value) {
-      var val = (value / 1).toFixed(0).replace('.', ',');
+      var val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     addAnggaran: function addAnggaran() {
@@ -2402,18 +2707,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var valSumberDana = document.getElementById("sumber").value;
 
       if (this.jenis == "tambah") {
-        if (this.dataKe != "") {
-          this.anggarans[this.dataKe - 1] = this.anggaran;
-          var tmpAnggaran = this.anggarans;
-          this.anggarans = [];
-          this.anggarans = tmpAnggaran;
-          this.dataKe = "";
-          document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+        if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+          if (this.dataKe != "") {
+            this.anggarans[this.dataKe - 1] = this.anggaran;
+            var tmpAnggaran = this.anggarans;
+            this.anggarans = [];
+            this.anggarans = tmpAnggaran;
+            this.dataKe = "";
+            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
           } else {
             // Data Berhasil di Input
             this.anggarans.push(_objectSpread({}, this.anggaran));
@@ -2423,17 +2727,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         this.anggaran = {};
       } else {
-        if (this.anggaran && this.anggaran.pengeluaranID) {
-          var idx = this.anggarans.findIndex(function (obj) {
-            return obj.pengeluaranID == _this.anggaran.pengeluaranID;
-          });
-          this.anggarans[idx] = this.anggaran;
-          document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+        if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+          if (this.anggaran && this.anggaran.pengeluaranID) {
+            var idx = this.anggarans.findIndex(function (obj) {
+              return obj.pengeluaranID == _this.anggaran.pengeluaranID;
+            });
+            this.anggarans[idx] = this.anggaran;
+            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
           } else {
             // Data Berhasil di Input
             this.anggarans.push(_objectSpread({}, this.anggaran));
@@ -2457,7 +2760,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: {
     total: function total() {
-      console.log(this.anggarans);
       return this.anggarans.reduce(function (total, anggaran) {
         return total + anggaran.hargaSatuan * anggaran.kuantitas;
       }, 0);
@@ -2608,6 +2910,163 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2619,7 +3078,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dataKe: ""
     };
   },
-  props: ['sumberDana', 'listOfAnggaran', 'jenisData'],
+  props: ["sumberDana", "listOfAnggaran", "jenisData"],
   components: {
     AutoNumericVue: autonumeric_vue_src_components_AutoNumericVue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -2634,7 +3093,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     formatPrice: function formatPrice(value) {
-      var val = (value / 1).toFixed(0).replace('.', ',');
+      var val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     addAnggaran: function addAnggaran() {
@@ -2648,18 +3107,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var valSumberDana = document.getElementById("sumber").value;
 
       if (this.jenis == "tambah") {
-        if (this.dataKe != "") {
-          this.anggarans[this.dataKe - 1] = this.anggaran;
-          var tmpAnggaran = this.anggarans;
-          this.anggarans = [];
-          this.anggarans = tmpAnggaran;
-          this.dataKe = "";
-          document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+        //Error Jika Data Kosong
+        if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+          if (this.dataKe != "") {
+            this.anggarans[this.dataKe - 1] = this.anggaran;
+            var tmpAnggaran = this.anggarans;
+            this.anggarans = [];
+            this.anggarans = tmpAnggaran;
+            this.dataKe = "";
+            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
           } else {
             // Data Berhasil di Input
             this.anggarans.push(_objectSpread({}, this.anggaran));
@@ -2669,17 +3128,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         this.anggaran = {};
       } else {
-        if (this.anggaran && this.anggaran.anggaranID) {
-          var idx = this.anggarans.findIndex(function (obj) {
-            return obj.anggaranID == _this.anggaran.anggaranID;
-          });
-          this.anggarans[idx] = this.anggaran;
-          document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
+        //Error Jika Data Kosong
+        if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valHargaSatuan || !valAnggaranDeskripsi || !valKuantitas || !valSumberDana || !valSatuan) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitAnggaran").removeAttribute("data-dismiss");
+          if (this.anggaran && this.anggaran.anggaranID) {
+            var idx = this.anggarans.findIndex(function (obj) {
+              return obj.anggaranID == _this.anggaran.anggaranID;
+            });
+            this.anggarans[idx] = this.anggaran;
+            document.getElementById("submitAnggaran").setAttribute("data-dismiss", "modal");
           } else {
             // Data Berhasil di Input
             this.anggarans.push(_objectSpread({}, this.anggaran));
@@ -2839,6 +3298,111 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2848,7 +3412,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dataKe: ""
     };
   },
-  props: ['listOfIndikator', 'jenisData'],
+  props: ["listOfIndikator", "jenisData"],
   created: function created() {
     this.indikators = this.listOfIndikator;
     this.jenis = this.jenisData;
@@ -2867,18 +3431,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var valTarget = document.getElementById("target").value;
 
       if (this.jenis == "tambah") {
-        if (this.dataKe != "") {
-          this.indikators[this.dataKe - 1] = this.indikator;
-          var tmpIndikator = this.indikators;
-          this.indikators = [];
-          this.indikators = tmpIndikator;
-          this.dataKe = "";
-          document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+        //Error Jika Data Kosong
+        if (!valIndikatorDeskripsi || !valTarget) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitIndikator").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valIndikatorDeskripsi || !valTarget) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitIndikator").removeAttribute("data-dismiss");
+          if (this.dataKe != "") {
+            this.indikators[this.dataKe - 1] = this.indikator;
+            var tmpIndikator = this.indikators;
+            this.indikators = [];
+            this.indikators = tmpIndikator;
+            this.dataKe = "";
+            document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
           } else {
             // Data Berhasil di Input
             this.indikators.push(_objectSpread({}, this.indikator));
@@ -2888,17 +3452,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         this.indikator = {};
       } else {
-        if (this.indikator && this.indikator.indikatorPropelID) {
-          var idx = this.indikators.findIndex(function (obj) {
-            return obj.indikatorPropelID == _this.indikator.indikatorPropelID;
-          });
-          this.indikators[idx] = this.indikator;
-          document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+        //Error Jika Data Kosong
+        if (!valIndikatorDeskripsi || !valTarget) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitIndikator").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valIndikatorDeskripsi || !valTarget) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitIndikator").removeAttribute("data-dismiss");
+          if (this.indikator && this.indikator.indikatorPropelID) {
+            var idx = this.indikators.findIndex(function (obj) {
+              return obj.indikatorPropelID == _this.indikator.indikatorPropelID;
+            });
+            this.indikators[idx] = this.indikator;
+            document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
           } else {
             // Data Berhasil di Input
             this.indikators.push(_objectSpread({}, this.indikator));
@@ -3018,16 +3582,123 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       indikators: [],
-      indikator: {}
+      indikator: {},
+      jenis: [],
+      dataKe: ""
     };
   },
-  props: ['listOfIndikator'],
+  props: ["listOfIndikator", "jenisData"],
   created: function created() {
     this.indikators = this.listOfIndikator;
+    this.jenis = this.jenisData;
     this.indikators = this.listOfIndikator.map(function (v) {
       return _objectSpread(_objectSpread({}, v), {}, {
         isDeleted: false
@@ -3067,6 +3738,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     editIndikator: function editIndikator(index) {
       this.indikator = _objectSpread({}, this.indikators[index]);
+      this.dataKe = index + 1;
     },
     refreshIndikator: function refreshIndikator() {
       this.indikator = {};
@@ -3166,6 +3838,114 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -3175,7 +3955,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       indikator: {}
     }, _defineProperty(_ref, "indikator", {}), _defineProperty(_ref, "jenis", []), _defineProperty(_ref, "dataKe", ""), _ref;
   },
-  props: ['listOfIndikator', 'jenisData'],
+  props: ["listOfIndikator", "jenisData"],
   created: function created() {
     this.indikators = this.listOfIndikator;
     this.jenis = this.jenisData;
@@ -3192,21 +3972,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.indikator.isDeleted = false;
       var valIndikatorDeskripsi = document.getElementById("indikatorDeskripsi").value;
       var valTarget = document.getElementById("target").value;
-      console.log(this.jenis);
 
       if (this.jenis == "tambah") {
-        if (this.dataKe != "") {
-          this.indikators[this.dataKe - 1] = this.indikator;
-          var tmpIndikator = this.indikators;
-          this.indikators = [];
-          this.indikators = tmpIndikator;
-          this.dataKe = "";
-          document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+        //Error Jika Data Kosong
+        if (!valIndikatorDeskripsi || !valTarget) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitIndikator").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valIndikatorDeskripsi || !valTarget) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitIndikator").removeAttribute("data-dismiss");
+          if (this.dataKe != "") {
+            this.indikators[this.dataKe - 1] = this.indikator;
+            var tmpIndikator = this.indikators;
+            this.indikators = [];
+            this.indikators = tmpIndikator;
+            this.dataKe = "";
+            document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
           } else {
             // Data Berhasil di Input
             this.indikators.push(_objectSpread({}, this.indikator));
@@ -3216,17 +3995,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         this.indikator = {};
       } else {
-        if (this.indikator && this.indikator.indikatorID) {
-          var idx = this.indikators.findIndex(function (obj) {
-            return obj.indikatorID == _this.indikator.indikatorID;
-          });
-          this.indikators[idx] = this.indikator;
-          document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
+        if (!valIndikatorDeskripsi || !valTarget) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitIndikator").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valIndikatorDeskripsi || !valTarget) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitIndikator").removeAttribute("data-dismiss");
+          if (this.indikator && this.indikator.indikatorID) {
+            var idx = this.indikators.findIndex(function (obj) {
+              return obj.indikatorID == _this.indikator.indikatorID;
+            });
+            this.indikators[idx] = this.indikator;
+            document.getElementById("submitIndikator").setAttribute("data-dismiss", "modal");
           } else {
             // Data Berhasil di Input
             this.indikators.push(_objectSpread({}, this.indikator));
@@ -3356,6 +4134,125 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3367,7 +4264,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dataKe: ""
     };
   },
-  props: ['listOfRincian', 'jenisData'],
+  props: ["listOfRincian", "jenisData"],
   created: function created() {
     this.rincians = this.listOfRincian;
     this.jenis = this.jenisData;
@@ -3385,7 +4282,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return moment__WEBPACK_IMPORTED_MODULE_1___default()(date);
     },
     customDate: function customDate(date) {
-      return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).format('DD-MM-YYYY');
+      return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).format("DD-MM-YYYY");
     },
     addRincian: function addRincian() {
       var _this = this;
@@ -3397,18 +4294,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var valWaktuSelesai = document.getElementById("waktuSelesai").value;
 
       if (this.jenis == "tambah") {
-        if (this.dataKe != "") {
-          this.rincians[this.dataKe - 1] = this.rincian;
-          var tmpRincian = this.rincians;
-          this.rincians = [];
-          this.rincians = tmpRincian;
-          this.dataKe = "";
-          document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+        //Error Jika Data Kosong
+        if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitRincian").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitRincian").removeAttribute("data-dismiss");
+          if (this.dataKe != "") {
+            this.rincians[this.dataKe - 1] = this.rincian;
+            var tmpRincian = this.rincians;
+            this.rincians = [];
+            this.rincians = tmpRincian;
+            this.dataKe = "";
+            document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
           } else {
             // Data Berhasil di Input
             if (moment__WEBPACK_IMPORTED_MODULE_1___default()(this.rincian.waktuSelesai).isBefore(this.rincian.waktuMulai)) {
@@ -3425,17 +4322,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         this.rincian = {};
       } else {
-        if (this.rincian && this.rincian.rincianPropelID) {
-          var idx = this.rincians.findIndex(function (obj) {
-            return obj.rincianPropelID == _this.rincian.rincianPropelID;
-          });
-          this.rincians[idx] = this.rincian;
-          document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+        //Error Jika Data Kosong
+        if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitRincian").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitRincian").removeAttribute("data-dismiss");
+          if (this.rincian && this.rincian.rincianPropelID) {
+            var idx = this.rincians.findIndex(function (obj) {
+              return obj.rincianPropelID == _this.rincian.rincianPropelID;
+            });
+            this.rincians[idx] = this.rincian;
+            document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
           } else {
             if (moment__WEBPACK_IMPORTED_MODULE_1___default()(this.rincian.waktuSelesai).isBefore(this.rincian.waktuMulai)) {
               alert("Waktu Mulai tidak boleh lebih dari Waktu Selesai!!!");
@@ -3574,6 +4471,122 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3583,7 +4596,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       rincian: {}
     };
   },
-  props: ['listOfRincian'],
+  props: ["listOfRincian"],
   created: function created() {
     this.rincians = this.listOfRincian;
     this.rincians = this.listOfRincian.map(function (v) {
@@ -3600,7 +4613,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return moment__WEBPACK_IMPORTED_MODULE_1___default()(date);
     },
     customDate: function customDate(date) {
-      return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).format('DD-MM-YYYY');
+      return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).format("DD-MM-YYYY");
     },
     addRincian: function addRincian() {
       var _this = this;
@@ -3755,6 +4768,123 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3766,7 +4896,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dataKe: ""
     };
   },
-  props: ['listOfRincian', 'jenisData'],
+  props: ["listOfRincian", "jenisData"],
   created: function created() {
     this.rincians = this.listOfRincian;
     this.jenis = this.jenisData;
@@ -3784,7 +4914,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return moment__WEBPACK_IMPORTED_MODULE_1___default()(date);
     },
     customDate: function customDate(date) {
-      return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).format('DD-MM-YYYY');
+      return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).format("DD-MM-YYYY");
     },
     addRincian: function addRincian() {
       var _this = this;
@@ -3796,18 +4926,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var valWaktuSelesai = document.getElementById("waktuSelesai").value;
 
       if (this.jenis == "tambah") {
-        if (this.dataKe != "") {
-          this.rincians[this.dataKe - 1] = this.rincian;
-          var tmpRincian = this.rincians;
-          this.rincians = [];
-          this.rincians = tmpRincian;
-          this.dataKe = "";
-          document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+        //Error Jika Data Kosong
+        if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitRincian").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitRincian").removeAttribute("data-dismiss");
+          if (this.dataKe != "") {
+            this.rincians[this.dataKe - 1] = this.rincian;
+            var tmpRincian = this.rincians;
+            this.rincians = [];
+            this.rincians = tmpRincian;
+            this.dataKe = "";
+            document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
           } else {
             // Data Berhasil di Input
             if (moment__WEBPACK_IMPORTED_MODULE_1___default()(this.rincian.waktuSelesai).isBefore(this.rincian.waktuMulai)) {
@@ -3824,18 +4954,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         this.rincian = {};
       } else {
-        if (this.rincian && this.rincian.rincianID) {
-          var idx = this.rincians.findIndex(function (obj) {
-            return obj.rincianID == _this.rincian.rincianID;
-          });
-          this.rincians[idx] = this.rincian;
-          console.log(this.rincian);
-          document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
+        //Error Jika Data Kosong
+        if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
+          alert("Data Tidak Boleh Kosong");
+          document.getElementById("submitRincian").removeAttribute("data-dismiss");
         } else {
-          //Error Jika Data Kosong
-          if (!valRincianDeskripsi || !valTempat || !valWaktuMulai || !valWaktuSelesai) {
-            alert("Data Tidak Boleh Kosong");
-            document.getElementById("submitRincian").removeAttribute("data-dismiss");
+          if (this.rincian && this.rincian.rincianID) {
+            var idx = this.rincians.findIndex(function (obj) {
+              return obj.rincianID == _this.rincian.rincianID;
+            });
+            this.rincians[idx] = this.rincian;
+            console.log(this.rincian);
+            document.getElementById("submitRincian").setAttribute("data-dismiss", "modal");
           } else {
             if (moment__WEBPACK_IMPORTED_MODULE_1___default()(this.rincian.waktuSelesai).isBefore(this.rincian.waktuMulai)) {
               alert("Waktu Mulai tidak boleh lebih dari Waktu Selesai!!!");
@@ -61304,12 +62434,22 @@ var render = function () {
                   : _vm._e(),
                 _vm._v(" "),
                 !anggaran.isDeleted
-                  ? _c("td", [_vm._v(_vm._s(anggaran.anggaranDeskripsi))])
+                  ? _c("td", [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(anggaran.anggaranDeskripsi) +
+                          "\n                "
+                      ),
+                    ])
                   : _vm._e(),
                 _vm._v(" "),
                 !anggaran.isDeleted
                   ? _c("td", [
-                      _vm._v(_vm._s(_vm.formatPrice(anggaran.hargaSatuan))),
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.formatPrice(anggaran.hargaSatuan)) +
+                          "\n                "
+                      ),
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -61320,11 +62460,13 @@ var render = function () {
                 !anggaran.isDeleted
                   ? _c("td", [
                       _vm._v(
-                        _vm._s(
-                          _vm.sumberDana.find(function (source) {
-                            return source.sumberID === anggaran.sumberID
-                          }).sumberDeskripsi
-                        )
+                        "\n                    " +
+                          _vm._s(
+                            _vm.sumberDana.find(function (source) {
+                              return source.sumberID === anggaran.sumberID
+                            }).sumberDeskripsi
+                          ) +
+                          "\n                "
                       ),
                     ])
                   : _vm._e(),
@@ -61332,11 +62474,13 @@ var render = function () {
                 !anggaran.isDeleted
                   ? _c("td", [
                       _vm._v(
-                        _vm._s(
-                          _vm.formatPrice(
-                            anggaran.hargaSatuan * anggaran.kuantitas
-                          )
-                        )
+                        "\n                    " +
+                          _vm._s(
+                            _vm.formatPrice(
+                              anggaran.hargaSatuan * anggaran.kuantitas
+                            )
+                          ) +
+                          "\n                "
                       ),
                     ])
                   : _vm._e(),
@@ -61465,7 +62609,7 @@ var render = function () {
                         return source.sumberID === anggaran.sumberID
                       }).sumberDeskripsi,
                       expression:
-                        "sumberDana.find(source => source.sumberID === anggaran.sumberID).sumberDeskripsi",
+                        "\n                        sumberDana.find(\n                            (source) =>\n                                source.sumberID === anggaran.sumberID\n                        ).sumberDeskripsi\n                    ",
                     },
                   ],
                   staticClass: "form-control",
@@ -61637,7 +62781,10 @@ var render = function () {
             },
           },
         },
-        [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Tambah Data")]
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" Tambah Data\n        "),
+        ]
       ),
     ]),
     _vm._v(" "),
@@ -61846,9 +62993,9 @@ var render = function () {
                             { domProps: { value: text.sumberID } },
                             [
                               _vm._v(
-                                "\n                            " +
+                                "\n                                    " +
                                   _vm._s(text.sumberDeskripsi) +
-                                  "\n                        "
+                                  "\n                                "
                               ),
                             ]
                           )
@@ -61867,7 +63014,11 @@ var render = function () {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" },
                   },
-                  [_vm._v("Close")]
+                  [
+                    _vm._v(
+                      "\n                        Close\n                    "
+                    ),
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -61877,7 +63028,11 @@ var render = function () {
                     attrs: { id: "submitAnggaran", type: "button" },
                     on: { click: _vm.addAnggaran },
                   },
-                  [_vm._v("Submit")]
+                  [
+                    _vm._v(
+                      "\n                        Submit\n                    "
+                    ),
+                  ]
                 ),
               ]),
             ]),
@@ -61918,7 +63073,11 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Form Anggaran")]
+        [
+          _vm._v(
+            "\n                        Form Anggaran\n                    "
+          ),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -61974,12 +63133,22 @@ var render = function () {
                   : _vm._e(),
                 _vm._v(" "),
                 !anggaran.isDeleted
-                  ? _c("td", [_vm._v(_vm._s(anggaran.pengeluaranDeskripsi))])
+                  ? _c("td", [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(anggaran.pengeluaranDeskripsi) +
+                          "\n                "
+                      ),
+                    ])
                   : _vm._e(),
                 _vm._v(" "),
                 !anggaran.isDeleted
                   ? _c("td", [
-                      _vm._v(_vm._s(_vm.formatPrice(anggaran.hargaSatuan))),
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.formatPrice(anggaran.hargaSatuan)) +
+                          "\n                "
+                      ),
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -61994,11 +63163,13 @@ var render = function () {
                 !anggaran.isDeleted
                   ? _c("td", [
                       _vm._v(
-                        _vm._s(
-                          _vm.sumberDana.find(function (source) {
-                            return source.sumberID === anggaran.sumberID
-                          }).sumberDeskripsi
-                        )
+                        "\n                    " +
+                          _vm._s(
+                            _vm.sumberDana.find(function (source) {
+                              return source.sumberID === anggaran.sumberID
+                            }).sumberDeskripsi
+                          ) +
+                          "\n                "
                       ),
                     ])
                   : _vm._e(),
@@ -62006,11 +63177,13 @@ var render = function () {
                 !anggaran.isDeleted
                   ? _c("td", [
                       _vm._v(
-                        _vm._s(
-                          _vm.formatPrice(
-                            anggaran.hargaSatuan * anggaran.kuantitas
-                          )
-                        )
+                        "\n                    " +
+                          _vm._s(
+                            _vm.formatPrice(
+                              anggaran.hargaSatuan * anggaran.kuantitas
+                            )
+                          ) +
+                          "\n                "
                       ),
                     ])
                   : _vm._e(),
@@ -62164,7 +63337,7 @@ var render = function () {
                         return source.sumberID === anggaran.sumberID
                       }).sumberDeskripsi,
                       expression:
-                        "sumberDana.find(source => source.sumberID === anggaran.sumberID).sumberDeskripsi",
+                        "\n                        sumberDana.find(\n                            (source) =>\n                                source.sumberID === anggaran.sumberID\n                        ).sumberDeskripsi\n                    ",
                     },
                   ],
                   staticClass: "form-control",
@@ -62356,7 +63529,10 @@ var render = function () {
             },
           },
         },
-        [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Tambah Data")]
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" Tambah Data\n        "),
+        ]
       ),
     ]),
     _vm._v(" "),
@@ -62603,9 +63779,9 @@ var render = function () {
                             { domProps: { value: text.sumberID } },
                             [
                               _vm._v(
-                                "\n                            " +
+                                "\n                                    " +
                                   _vm._s(text.sumberDeskripsi) +
-                                  "\n                        "
+                                  "\n                                "
                               ),
                             ]
                           )
@@ -62624,7 +63800,11 @@ var render = function () {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" },
                   },
-                  [_vm._v("Close")]
+                  [
+                    _vm._v(
+                      "\n                        Close\n                    "
+                    ),
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -62638,7 +63818,11 @@ var render = function () {
                     },
                     on: { click: _vm.addAnggaran },
                   },
-                  [_vm._v("Submit")]
+                  [
+                    _vm._v(
+                      "\n                        Submit\n                    "
+                    ),
+                  ]
                 ),
               ]),
             ]),
@@ -62681,7 +63865,11 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Form Pengeluaran LPJ")]
+        [
+          _vm._v(
+            "\n                        Form Pengeluaran LPJ\n                    "
+          ),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -62737,12 +63925,22 @@ var render = function () {
                   : _vm._e(),
                 _vm._v(" "),
                 !anggaran.isDeleted
-                  ? _c("td", [_vm._v(_vm._s(anggaran.anggaranDeskripsi))])
+                  ? _c("td", [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(anggaran.anggaranDeskripsi) +
+                          "\n                "
+                      ),
+                    ])
                   : _vm._e(),
                 _vm._v(" "),
                 !anggaran.isDeleted
                   ? _c("td", [
-                      _vm._v(_vm._s(_vm.formatPrice(anggaran.hargaSatuan))),
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.formatPrice(anggaran.hargaSatuan)) +
+                          "\n                "
+                      ),
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -62757,11 +63955,13 @@ var render = function () {
                 !anggaran.isDeleted
                   ? _c("td", [
                       _vm._v(
-                        _vm._s(
-                          _vm.sumberDana.find(function (source) {
-                            return source.sumberID === anggaran.sumberID
-                          }).sumberDeskripsi
-                        )
+                        "\n                    " +
+                          _vm._s(
+                            _vm.sumberDana.find(function (source) {
+                              return source.sumberID === anggaran.sumberID
+                            }).sumberDeskripsi
+                          ) +
+                          "\n                "
                       ),
                     ])
                   : _vm._e(),
@@ -62769,11 +63969,13 @@ var render = function () {
                 !anggaran.isDeleted
                   ? _c("td", [
                       _vm._v(
-                        _vm._s(
-                          _vm.formatPrice(
-                            anggaran.hargaSatuan * anggaran.kuantitas
-                          )
-                        )
+                        "\n                    " +
+                          _vm._s(
+                            _vm.formatPrice(
+                              anggaran.hargaSatuan * anggaran.kuantitas
+                            )
+                          ) +
+                          "\n                "
                       ),
                     ])
                   : _vm._e(),
@@ -62927,7 +64129,7 @@ var render = function () {
                         return source.sumberID === anggaran.sumberID
                       }).sumberDeskripsi,
                       expression:
-                        "sumberDana.find(source => source.sumberID === anggaran.sumberID).sumberDeskripsi",
+                        "\n                        sumberDana.find(\n                            (source) =>\n                                source.sumberID === anggaran.sumberID\n                        ).sumberDeskripsi\n                    ",
                     },
                   ],
                   staticClass: "form-control",
@@ -63097,7 +64299,10 @@ var render = function () {
             },
           },
         },
-        [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Tambah Data")]
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" Tambah Data\n        "),
+        ]
       ),
     ]),
     _vm._v(" "),
@@ -63344,9 +64549,9 @@ var render = function () {
                             { domProps: { value: text.sumberID } },
                             [
                               _vm._v(
-                                "\n                            " +
+                                "\n                                    " +
                                   _vm._s(text.sumberDeskripsi) +
-                                  "\n                        "
+                                  "\n                                "
                               ),
                             ]
                           )
@@ -63365,7 +64570,11 @@ var render = function () {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" },
                   },
-                  [_vm._v("Close")]
+                  [
+                    _vm._v(
+                      "\n                        Close\n                    "
+                    ),
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -63375,7 +64584,11 @@ var render = function () {
                     attrs: { type: "button", id: "submitAnggaran" },
                     on: { click: _vm.addAnggaran },
                   },
-                  [_vm._v("Submit")]
+                  [
+                    _vm._v(
+                      "\n                        Submit\n                    "
+                    ),
+                  ]
                 ),
               ]),
             ]),
@@ -63418,7 +64631,11 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Form Anggaran")]
+        [
+          _vm._v(
+            "\n                        Form Anggaran\n                    "
+          ),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -63520,7 +64737,13 @@ var render = function () {
                 : _vm._e(),
               _vm._v(" "),
               !indikator.isDeleted
-                ? _c("td", [_vm._v(_vm._s(indikator.indikatorDeskripsi))])
+                ? _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(indikator.indikatorDeskripsi) +
+                        "\n                "
+                    ),
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               !indikator.isDeleted
@@ -63528,7 +64751,13 @@ var render = function () {
                 : _vm._e(),
               _vm._v(" "),
               !indikator.isDeleted
-                ? _c("td", [_vm._v(_vm._s(indikator.pencapaianLPJ))])
+                ? _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(indikator.pencapaianLPJ) +
+                        "\n                "
+                    ),
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               !indikator.isDeleted
@@ -63722,7 +64951,10 @@ var render = function () {
             },
           },
         },
-        [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Tambah Data")]
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" Tambah Data\n        "),
+        ]
       ),
     ]),
     _vm._v(" "),
@@ -63880,7 +65112,11 @@ var render = function () {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" },
                   },
-                  [_vm._v("Close")]
+                  [
+                    _vm._v(
+                      "\n                        Close\n                    "
+                    ),
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -63890,7 +65126,11 @@ var render = function () {
                     attrs: { id: "submitIndikator", type: "button" },
                     on: { click: _vm.addIndikator },
                   },
-                  [_vm._v("Submit")]
+                  [
+                    _vm._v(
+                      "\n                        Submit\n                    "
+                    ),
+                  ]
                 ),
               ]),
             ]),
@@ -63927,7 +65167,11 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Form Indikator Target")]
+        [
+          _vm._v(
+            "\n                        Form Indikator Target\n                    "
+          ),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -63982,7 +65226,13 @@ var render = function () {
                 : _vm._e(),
               _vm._v(" "),
               !indikator.isDeleted
-                ? _c("td", [_vm._v(_vm._s(indikator.indikatorDeskripsi))])
+                ? _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(indikator.indikatorDeskripsi) +
+                        "\n                "
+                    ),
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               !indikator.isDeleted
@@ -63990,7 +65240,13 @@ var render = function () {
                 : _vm._e(),
               _vm._v(" "),
               !indikator.isDeleted
-                ? _c("td", [_vm._v(_vm._s(indikator.pencapaianLPJ))])
+                ? _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(indikator.pencapaianLPJ) +
+                        "\n                "
+                    ),
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               !indikator.isDeleted
@@ -64180,7 +65436,10 @@ var render = function () {
             },
           },
         },
-        [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Tambah Data")]
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" Tambah Data\n        "),
+        ]
       ),
     ]),
     _vm._v(" "),
@@ -64337,7 +65596,11 @@ var render = function () {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" },
                   },
-                  [_vm._v("Close")]
+                  [
+                    _vm._v(
+                      "\n                        Close\n                    "
+                    ),
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -64351,7 +65614,11 @@ var render = function () {
                     },
                     on: { click: _vm.addIndikator },
                   },
-                  [_vm._v("Submit")]
+                  [
+                    _vm._v(
+                      "\n                        Submit\n                    "
+                    ),
+                  ]
                 ),
               ]),
             ]),
@@ -64388,7 +65655,11 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Form Indikator Target")]
+        [
+          _vm._v(
+            "\n                        Form Indikator Target\n                    "
+          ),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -64443,7 +65714,13 @@ var render = function () {
                 : _vm._e(),
               _vm._v(" "),
               !indikator.isDeleted
-                ? _c("td", [_vm._v(_vm._s(indikator.indikatorDeskripsi))])
+                ? _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(indikator.indikatorDeskripsi) +
+                        "\n                "
+                    ),
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               !indikator.isDeleted
@@ -64451,7 +65728,13 @@ var render = function () {
                 : _vm._e(),
               _vm._v(" "),
               !indikator.isDeleted
-                ? _c("td", [_vm._v(_vm._s(indikator.pencapaianLPJ))])
+                ? _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(indikator.pencapaianLPJ) +
+                        "\n                "
+                    ),
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               !indikator.isDeleted
@@ -64641,7 +65924,10 @@ var render = function () {
             },
           },
         },
-        [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Tambah Data")]
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" Tambah Data\n        "),
+        ]
       ),
     ]),
     _vm._v(" "),
@@ -64799,7 +66085,11 @@ var render = function () {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" },
                   },
-                  [_vm._v("Close")]
+                  [
+                    _vm._v(
+                      "\n                        Close\n                    "
+                    ),
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -64809,7 +66099,11 @@ var render = function () {
                     attrs: { id: "submitIndikator", type: "button" },
                     on: { click: _vm.addIndikator },
                   },
-                  [_vm._v("Submit")]
+                  [
+                    _vm._v(
+                      "\n                        Submit\n                    "
+                    ),
+                  ]
                 ),
               ]),
             ]),
@@ -64846,7 +66140,11 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Form Indikator Target")]
+        [
+          _vm._v(
+            "\n                        Form Indikator Target\n                    "
+          ),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -64901,7 +66199,13 @@ var render = function () {
                 : _vm._e(),
               _vm._v(" "),
               !rincian.isDeleted
-                ? _c("td", [_vm._v(_vm._s(rincian.rincianDeskripsi))])
+                ? _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(rincian.rincianDeskripsi) +
+                        "\n                "
+                    ),
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               !rincian.isDeleted
@@ -64909,12 +66213,22 @@ var render = function () {
                 : _vm._e(),
               _vm._v(" "),
               !rincian.isDeleted
-                ? _c("td", [_vm._v(_vm._s(_vm.customDate(rincian.waktuMulai)))])
+                ? _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.customDate(rincian.waktuMulai)) +
+                        "\n                "
+                    ),
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               !rincian.isDeleted
                 ? _c("td", [
-                    _vm._v(_vm._s(_vm.customDate(rincian.waktuSelesai))),
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.customDate(rincian.waktuSelesai)) +
+                        "\n                "
+                    ),
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -65123,7 +66437,10 @@ var render = function () {
             },
           },
         },
-        [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Tambah Data")]
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" Tambah Data\n        "),
+        ]
       ),
     ]),
     _vm._v(" "),
@@ -65313,7 +66630,11 @@ var render = function () {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" },
                   },
-                  [_vm._v("Close")]
+                  [
+                    _vm._v(
+                      "\n                        Close\n                    "
+                    ),
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -65323,7 +66644,11 @@ var render = function () {
                     attrs: { id: "submitRincian", type: "button" },
                     on: { click: _vm.addRincian },
                   },
-                  [_vm._v("Submit")]
+                  [
+                    _vm._v(
+                      "\n                        Submit\n                    "
+                    ),
+                  ]
                 ),
               ]),
             ]),
@@ -65362,7 +66687,11 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Form Rencana dan Pelaksanaan")]
+        [
+          _vm._v(
+            "\n                        Form Rencana dan Pelaksanaan\n                    "
+          ),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -65417,7 +66746,13 @@ var render = function () {
                 : _vm._e(),
               _vm._v(" "),
               !rincian.isDeleted
-                ? _c("td", [_vm._v(_vm._s(rincian.rincianDeskripsiLPJ))])
+                ? _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(rincian.rincianDeskripsiLPJ) +
+                        "\n                "
+                    ),
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               !rincian.isDeleted
@@ -65426,13 +66761,21 @@ var render = function () {
               _vm._v(" "),
               !rincian.isDeleted
                 ? _c("td", [
-                    _vm._v(_vm._s(_vm.customDate(rincian.waktuMulaiLPJ))),
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.customDate(rincian.waktuMulaiLPJ)) +
+                        "\n                "
+                    ),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               !rincian.isDeleted
                 ? _c("td", [
-                    _vm._v(_vm._s(_vm.customDate(rincian.waktuSelesaiLPJ))),
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.customDate(rincian.waktuSelesaiLPJ)) +
+                        "\n                "
+                    ),
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -65645,7 +66988,10 @@ var render = function () {
             },
           },
         },
-        [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Tambah Data")]
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" Tambah Data\n        "),
+        ]
       ),
     ]),
     _vm._v(" "),
@@ -65830,7 +67176,11 @@ var render = function () {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" },
                   },
-                  [_vm._v("Close")]
+                  [
+                    _vm._v(
+                      "\n                        Close\n                    "
+                    ),
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -65840,7 +67190,11 @@ var render = function () {
                     attrs: { id: "submitRincian", type: "button" },
                     on: { click: _vm.addRincian },
                   },
-                  [_vm._v("Submit")]
+                  [
+                    _vm._v(
+                      "\n                        Submit\n                    "
+                    ),
+                  ]
                 ),
               ]),
             ]),
@@ -65879,7 +67233,11 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Form Rencana dan Pelaksanaan")]
+        [
+          _vm._v(
+            "\n                        Form Rencana dan Pelaksanaan\n                    "
+          ),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -65934,7 +67292,13 @@ var render = function () {
                 : _vm._e(),
               _vm._v(" "),
               !rincian.isDeleted
-                ? _c("td", [_vm._v(_vm._s(rincian.rincianDeskripsi))])
+                ? _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(rincian.rincianDeskripsi) +
+                        "\n                "
+                    ),
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               !rincian.isDeleted
@@ -65942,12 +67306,22 @@ var render = function () {
                 : _vm._e(),
               _vm._v(" "),
               !rincian.isDeleted
-                ? _c("td", [_vm._v(_vm._s(_vm.customDate(rincian.waktuMulai)))])
+                ? _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.customDate(rincian.waktuMulai)) +
+                        "\n                "
+                    ),
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               !rincian.isDeleted
                 ? _c("td", [
-                    _vm._v(_vm._s(_vm.customDate(rincian.waktuSelesai))),
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.customDate(rincian.waktuSelesai)) +
+                        "\n                "
+                    ),
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -66156,7 +67530,10 @@ var render = function () {
             },
           },
         },
-        [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Tambah Data")]
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" Tambah Data\n        "),
+        ]
       ),
     ]),
     _vm._v(" "),
@@ -66344,7 +67721,11 @@ var render = function () {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" },
                   },
-                  [_vm._v("Close")]
+                  [
+                    _vm._v(
+                      "\n                        Close\n                    "
+                    ),
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -66354,7 +67735,11 @@ var render = function () {
                     attrs: { id: "submitRincian", type: "button" },
                     on: { click: _vm.addRincian },
                   },
-                  [_vm._v("Submit")]
+                  [
+                    _vm._v(
+                      "\n                        Submit\n                    "
+                    ),
+                  ]
                 ),
               ]),
             ]),
@@ -66393,7 +67778,11 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Form Rencana dan Pelaksanaan")]
+        [
+          _vm._v(
+            "\n                        Form Rencana dan Pelaksanaan\n                    "
+          ),
+        ]
       ),
       _vm._v(" "),
       _c(

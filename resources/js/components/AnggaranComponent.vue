@@ -359,7 +359,7 @@ export default {
                 this.anggaran = {};
             }
         },
-        removeAnggaran: function (index) {
+        removeAnggaran(index) {
             this.anggarans.splice(index, 1);
         },
         editAnggaran(index) {
