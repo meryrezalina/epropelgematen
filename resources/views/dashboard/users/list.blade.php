@@ -62,8 +62,12 @@
                                 <td>{{ $users_item->name }}</td>
                                 <td>{{ $users_item->email }}</td>
                                 <td>{{ $users_item->role }}</td>
-                                <td>{{ $users_item->bidang->namaBidang }}</td>
-                                <td>{{ $users_item->timpel->namaTimpel }}</td </tr>
+                                {{-- <td>{{ $users_item->bidang->namaBidang }}</td> --}}
+                                <td>{{ !empty($users_item->bidang->namaBidang) ? $users_item->bidang->namaBidang : '' }}
+                                </td>
+                                <td>{{ !empty($users_item->timpel->namaTimpel) ? $users_item->timpel->namaTimpel : '' }}
+                                </td>
+                                {{-- <td>{{ $users_item->timpel->namaTimpel }}</td </tr> --}}
                                 <td>
                                     <button class="btn btn-danger btn-sm hapusUsers" data-id="{{ $users_item->id }}"><i
                                             class="fas fa-trash-alt"></i></button>

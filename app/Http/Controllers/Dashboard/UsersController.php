@@ -72,7 +72,7 @@ class UsersController extends Controller
         Log::info('store');
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6|max:100',
             'password_confirmation' => 'required|same:password',
         ]);
@@ -150,7 +150,7 @@ class UsersController extends Controller
      */
     public function destroy(Request $request, $users)
     {
-        User::where('id',$users)->delete();
+        User::where('id', $users)->delete();
         return "berhasil hapus";
 
         return redirect()
